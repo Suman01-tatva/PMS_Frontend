@@ -5,6 +5,10 @@ export const getAccessToken = () => {
   export const storeAccessToken = (accessToken: string) => {
     localStorage.setItem('access_token', accessToken);
   };
+
+  export const storeUSerData = (user: object) => {
+    localStorage.setItem('user', user ? JSON.stringify(user) : '');
+  };
   
   export const removeAccessToken = () => {
     localStorage.removeItem('access_token');
@@ -13,5 +17,6 @@ export const getAccessToken = () => {
   export default {
     getAccessToken,
     storeAccessToken,
-    removeAccessToken
+    removeAccessToken,
+    storeUSerData
   };

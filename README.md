@@ -25,15 +25,8 @@ npm install @mui/material
 # Folder Structure
 
 src/
-│
-├── api/                   
-│   └── index.ts
-│   └── authApi.ts
-│   └── userApi.ts
-│   └── projectApi.ts
-│   └── sprintApi.ts
-│   └── taskApi.ts
-│
+│── core/
+|   |── common components and files
 ├── app/                  
 │   └── store.ts
 │   └── rootReducer.ts
@@ -113,3 +106,16 @@ src/
 ├── App.tsx
 ├── main.tsx             # (Vite) or index.tsx (CRA)
 └── index.css
+
+React Basic - https://react.dev/learn
+React Vite App - https://vite.dev/guide/
+React hooks - https://react.dev/reference/react/hooks
+		- https://www.freecodecamp.org/news/full-guide-to-react-hooks/
+React Routing - https://hygraph.com/blog/routing-in-react
+
+
+
+Project Reference
+- https://github.com/RedPlanetHQ/tegon/tree/main/apps/website/src
+- https://github.com/opf/openproject/tree/dev/app
+- https://github.com/makeplane/plane/tree/preview/apps/web

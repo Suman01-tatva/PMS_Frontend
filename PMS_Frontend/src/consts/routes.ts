@@ -1,6 +1,8 @@
+const API_URL = "http://localhost:5254/api";
+
 export const PUBLIC_ROUTES = {
     HOME: '/',
-    LOGIN: '/login'
+    LOGIN: `${API_URL}/Auth/login`
   };
   
   export const PRIVATE_ROUTES = {

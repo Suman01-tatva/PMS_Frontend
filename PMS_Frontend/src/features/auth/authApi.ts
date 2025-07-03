@@ -1,6 +1,7 @@
-// import API from '../../@core/api/apiConfig';
-// import { PRIVATE_ROUTES } from '../../consts/routes';
-// end-points
+import API from '../../@core/api/apiConfig';
+import { PUBLIC_ROUTES } from '../../consts/routes';
+import type { LoginResponse, LoginUser } from './types';
+
 
 // PRIVATE_ROUTES.USER_ROUTES.CREATE;
 // export const getProduct = () => {
@@ -13,15 +14,16 @@
 //     });
 // };
 
-// export const createProduct = (data) => {
-//   return API('POST', product.index, data)
-//     .then((res) => {
-//       return res;
-//     })
-//     .catch((error) => {
-//       throw error;
-//     });
-// };
+export const loginUser = (data: LoginUser) => {
+    console.log('loginUser called with data:', data);
+    return API<LoginUser, LoginResponse>('POST', PUBLIC_ROUTES.LOGIN, data)
+      .then(res => {
+        return res.data;
+    })    
+      .catch(error => {
+        throw error;
+      });
+  };
 
 // export const getEditProduct = (id) => {
 //   return API('GET', `${product.index}/${id}`)
