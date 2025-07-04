@@ -4,8 +4,11 @@ import LoginForm from "./components/LoginForm";
 import { loginFailure, loginStart, loginSuccess } from "./authSlice";
 import { useDispatch } from "react-redux";
 import { loginUser } from "./authApi";
-import { storeAccessToken, storeUSerData } from "../../utils/manageAccessToken";
+import { storeAccessToken, storeIsAuthenticated, storeUserData } from "../../utils/autUtils";
 import { useEffect } from "react";
+import "./auth.css";
+import toastService from "../../utils/toastr";
+
 
 const LoginPage: React.FC = () => {
   const { loading, error } = useAppSelector((state) => state.auth);
@@ -13,18 +16,25 @@ const LoginPage: React.FC = () => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
- 
-  const handleLogin = async (email: string, password: string) => {
+
+  // Example usage in a component or on some action:
+  const loginToastr = () => {
+    toastService.success("Saved successfully!");
+  };
+  const handleLogin = async (email: string, password: string, rememberMe: boolean) => {
     dispatch(loginStart());
     try {
-      const response = await loginUser({ email, password, rememberMe: false });
+      const response = await loginUser({ email, password, rememberMe: rememberMe });
       if (response.isSuccess) {
         dispatch(loginSuccess(response.data.user!)); 
         navigate("/home");
-        storeUSerData(response.data.user!);
-        storeAccessToken(response.data.token!);
+        storeUserData(response.data.user!);
+        storeIsAuthenticated(true);
+        storeAccessToken(response.data.token!,rememberMe);
+        loginToastr();
       } else {
         dispatch(loginFailure(response.message || "Invalid credentials"));
+        console.log(response.message || "Invalid credentials");
       }
     } catch (err) {
       console.log(err);
@@ -37,6 +47,7 @@ const LoginPage: React.FC = () => {
       navigate("/home");
     }
   }, [isAuthenticated, navigate]);
+  
   return <LoginForm loading={loading} error={error} onSubmit={handleLogin} />;
 };
 

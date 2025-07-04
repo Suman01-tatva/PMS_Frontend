@@ -6,6 +6,7 @@ import HomePage from "../features/home/HomePage";
 import MainLayout from "../layouts/MainLayout";
 import AuthLayout from "../layouts/AuthLayout";
 import NotFoundPage from "../features/home/NotFoundPage";
+import DashboardPage from "../features/dashboard/DashboardPage";
 
 const AppRoutes: React.FC = () => (
   <Routes>
@@ -15,7 +16,7 @@ const AppRoutes: React.FC = () => (
 
     <Route element={<ProtectedRoutes />}>
       <Route element={<MainLayout />}>
-        <Route path="/home" element={<HomePage />} />
+        <Route path="/home" element={<DashboardPage />} />
         {/* <Route path="/user" element={<UserPage />} /> */}
       </Route>
     </Route>

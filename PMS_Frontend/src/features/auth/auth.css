@@ -1,0 +1,66 @@
+:root{
+    --colorBlack : #333446;
+    --colorGrey : #7F8CAA;
+    --colorLightgreen : #B8CFCE;
+    --colorLight : #EAEFEF;
+  }
+
+html {
+    font-size: 14px;
+}
+
+h5 {
+    font-size: 1.2rem;
+    color: var(--colorBlack);
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+
+    #login-img {
+        display: none !important;
+    }
+}
+
+.form-input-div {
+    position: relative;
+}
+
+.form-input-icon {
+    position: absolute;
+    right: 10px;
+    top: 22%;
+}
+
+#LoginBtn{
+    background-color: var(--colorBlack);
+    color: var(--colorLightgreen);   
+}
+#resetPasswordBtn{
+    background-color: var(--colorBlack);
+    color: var(--colorLightgreen);   
+}
+
+
+#resetPasswordBtn:hover {
+    background-color: var(--colorGrey);
+    color: white;
+}
+#LoginBtn:hover {
+    background-color: var(--colorGrey);
+    color: white;
+}
+
+
+#login-page {
+    background-color: var(--colorLight);
+    height: 100vh;
+}

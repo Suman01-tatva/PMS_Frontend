@@ -1,5 +1,5 @@
 import axios, { type AxiosResponse } from 'axios';
-import { removeAccessToken } from '../../utils/manageAccessToken';
+import { removeAccessToken } from '../../utils/autUtils';
 
 export default function API<TRequest, TResponse>(
     method: string,

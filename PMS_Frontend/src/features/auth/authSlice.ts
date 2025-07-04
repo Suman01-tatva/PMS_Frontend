@@ -1,19 +1,21 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
+interface User {
+  id: string;
+  name: string;
+  email: string;
+}
 
 interface AuthState {
   isAuthenticated: boolean;
-  user: {
-    id: string;
-    name: string;
-    email: string;
-  } | null;
+  user: User | null;
   loading: boolean;
   error: string | null;
 }
 
 const initialState: AuthState = {
-  isAuthenticated: false,
-  user: null,
+  isAuthenticated: Cookies.get("access_token") ? true : false,
+  user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")!) : null,
   loading: false,
   error: null,
 };
@@ -26,7 +28,7 @@ const authSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-    loginSuccess(state, action: PayloadAction<{ id: string; name: string; email: string }>) {
+    loginSuccess(state, action: PayloadAction<User>) {
       state.loading = false;
       state.isAuthenticated = true;
       state.user = action.payload;

@@ -1,13 +1,24 @@
-import React from "react";
-import { Outlet } from "react-router";
+import { Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { type RootState } from '../app/store';
+import Navbar from '../common/components/Navbar';
 
 const MainLayout = () => {
+  const user = useSelector((state: RootState) => state.auth.user);
+  // SignalR notification handling (hook-based)
+//   useNotifications((message, id) => {
+//     if (user && user.id === id) {
+//       toast.success(message);
+//     }
+//   });
+
+  if (!user) return null;
   return (
-    <div>
-      <header>Main Header</header>
-      <nav>Main Navigation</nav>
+    <div className="min-h-screen flex flex-col bg-gray-50 text-gray-800">
+      <Navbar/>
+      <main className="flex-1 container mx-auto px-4 py-6">
         <Outlet />
-      <footer>Main Footer</footer>
+      </main>
     </div>
   );
 };
