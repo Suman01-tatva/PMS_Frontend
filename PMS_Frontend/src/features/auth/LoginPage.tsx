@@ -1,54 +1,58 @@
-import { useNavigate } from "react-router";
-import { useAppSelector } from "../../app/hook";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../app/hook";
 import LoginForm from "./components/LoginForm";
-import { loginFailure, loginStart, loginSuccess } from "./authSlice";
-import { useDispatch } from "react-redux";
+import { storeAccessToken, storeUserData, storeIsAuthenticated } from "../../utils/autUtils";
 import { loginUser } from "./authApi";
-import { storeAccessToken, storeIsAuthenticated, storeUserData } from "../../utils/autUtils";
-import { useEffect } from "react";
-import "./auth.css";
 import toastService from "../../utils/toastr";
-
+import { handleApiError } from "../../utils/errorHandler";
+import { hideLoader, showLoader } from "../loader/loaderSlice";
+import { loginFailure, loginStart, loginSuccess } from "./authSlice";
 
 const LoginPage: React.FC = () => {
-  const { loading, error } = useAppSelector((state) => state.auth);
-  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
-  const dispatch = useDispatch();
-
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { loading, error, isAuthenticated } = useAppSelector((state) => state.auth);
 
-  // Example usage in a component or on some action:
-  const loginToastr = () => {
-    toastService.success("Saved successfully!");
-  };
-  const handleLogin = async (email: string, password: string, rememberMe: boolean) => {
-    dispatch(loginStart());
-    try {
-      const response = await loginUser({ email, password, rememberMe: rememberMe });
-      if (response.isSuccess) {
-        dispatch(loginSuccess(response.data.user!)); 
-        navigate("/home");
-        storeUserData(response.data.user!);
-        storeIsAuthenticated(true);
-        storeAccessToken(response.data.token!,rememberMe);
-        loginToastr();
-      } else {
-        dispatch(loginFailure(response.message || "Invalid credentials"));
-        console.log(response.message || "Invalid credentials");
-      }
-    } catch (err) {
-      console.log(err);
-      dispatch(loginFailure("Something went wrong"));
-    }
-  };
-  
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/home");
+      navigate("/dashboard");
     }
   }, [isAuthenticated, navigate]);
-  
-  return <LoginForm loading={loading} error={error} onSubmit={handleLogin} />;
+
+  const handleLogin = async (
+    values: LoginFormValues,
+    { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
+  ) => {
+    dispatch(loginStart());
+    dispatch(showLoader());
+    try {
+      const response = await loginUser({
+        email: values.email,
+        password: values.password,
+        rememberMe: values.rememberMe,
+      });
+        dispatch(loginSuccess(response.data.user!));
+        storeUserData(response.data.user!);
+        storeIsAuthenticated(true);
+        storeAccessToken(response.data.token!, values.rememberMe);
+        toastService.success(response.message || "Login successful!");
+        navigate("/dashboard");
+    } catch (err) {
+      const errorMessage = handleApiError(err, 'Invalid credentials. Please try again.');
+      dispatch(loginFailure(errorMessage));
+      toastService.error(errorMessage);
+    } finally {
+      setSubmitting(false);
+    }
+    dispatch(hideLoader());
+  };
+
+  return (
+    <div>
+      <LoginForm loading={loading} error={error} onSubmit={handleLogin} />
+    </div>
+  );
 };
 
 export default LoginPage;

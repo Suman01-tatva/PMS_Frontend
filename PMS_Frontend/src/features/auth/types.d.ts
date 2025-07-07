@@ -1,10 +1,4 @@
-export interface LoginUser {
-  rememberMe: boolean;
-  email: string;
-  password: string;
-}
-
-export interface LoginResponse {
+declare interface LoginResponse {
   isSuccess: boolean;
   data: {
     user?: {
@@ -15,4 +9,10 @@ export interface LoginResponse {
     token?: string;
   };
   message?: string;
+}
+
+declare interface LoginFormValues {
+  email: string;
+  password: string;
+  rememberMe: boolean;
 }

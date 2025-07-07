@@ -1,15 +1,21 @@
 @import "tailwindcss";
+:root {
+  --colorBlack: #333446;
+  --colorGrey: #7f8caa;
+  --colorLightgreen: #b8cfce;
+  --colorLight: #eaefef;
+}
+
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background-color: #242424;
-  color: rgba(255, 255, 255, 0.87);
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
   font-weight: 400;
-
-  overflow-x: hidden; /* prevent horizontal scrollbar */
+  overflow-x: hidden;
+  background-color: var(--colorLight);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--colorBlack);
+  line-height: 1.6;
 }
 
 @media (prefers-color-scheme: light) {
@@ -17,4 +23,8 @@ body {
     background-color: #ffffff;
     color: #213547;
   }
+}
+
+body {
+ 
 }

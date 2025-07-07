@@ -1,6 +1,5 @@
 import API from '../../@core/api/apiConfig';
 import { PUBLIC_ROUTES } from '../../consts/routes';
-import type { LoginResponse, LoginUser } from './types';
 
 
 // PRIVATE_ROUTES.USER_ROUTES.CREATE;
@@ -14,9 +13,8 @@ import type { LoginResponse, LoginUser } from './types';
 //     });
 // };
 
-export const loginUser = (data: LoginUser) => {
-    console.log('loginUser called with data:', data);
-    return API<LoginUser, LoginResponse>('POST', PUBLIC_ROUTES.LOGIN, data)
+export const loginUser = (data: LoginFormValues) => {
+    return API<LoginFormValues, LoginResponse>('POST', PUBLIC_ROUTES.LOGIN, data)
       .then(res => {
         return res.data;
     })    

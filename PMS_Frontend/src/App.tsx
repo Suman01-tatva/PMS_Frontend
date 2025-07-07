@@ -3,9 +3,11 @@ import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AppRoutes from "./routes/AppRoutes";
 import { ToastContainer } from "react-toastify";
+import Loader from "./features/loader/Loader";
 
 const App: React.FC = () => (
   <BrowserRouter>
+    <Loader />
     <AppRoutes />
     <ToastContainer />
   </BrowserRouter>

@@ -13,9 +13,9 @@ const Navbar : React.FC = () => {
     const user = useSelector((state: RootState) => state.auth.user);
     const [isDrawerOpen, setDrawerOpen] = useState(false);
 
+  const navItemClass = (path: string) =>
+    `px-3 py-2 rounded hover:bg-gray-100 ${currentPath === path ? 'font-semibold text-blue-600 no-underline' : ''}`;
 
-    const navItemClass = (path: string) =>
-        `px-3 py-2 rounded hover:bg-gray-100 ${currentPath === path ? 'font-semibold text-blue-600' : ''}`;
   const handleLogout = () => {
     dispatch(logout());
     localStorage.setItem("isAuthenticated", "false");
@@ -25,8 +25,8 @@ const Navbar : React.FC = () => {
   };
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50">
-    <div className="container-fluid mx-auto px-4 py-3 flex justify-between items-center">
-      <Link to="/" className="text-xl font-bold">
+    <div className="container-fluid nav mx-auto px-4 py-3 flex justify-between items-center">
+      <Link to="/" className="text-xl font-bold no-underline">
         PMS
       </Link>
 
@@ -55,7 +55,7 @@ const Navbar : React.FC = () => {
 
         <div className="relative group">
           <button className="flex items-center gap-2">
-            <img src="/images/Default_pfp.svg.png" alt="pfp" className="w-10 h-10 rounded-full" />
+            <img src="../../assets/images/default_user.png" alt="profile" className="w-10 h-10 rounded-full" />
           </button>
           <ul className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-md z-40 hidden group-hover:block">
             <li className="px-4 py-2 font-semibold">{user ? user.name : 'Guest'}</li>

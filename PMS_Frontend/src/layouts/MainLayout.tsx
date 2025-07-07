@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { type RootState } from '../app/store';
 import Navbar from '../common/components/Navbar';
+import "./layout.css";
 
 const MainLayout = () => {
   const user = useSelector((state: RootState) => state.auth.user);
