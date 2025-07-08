@@ -1,4 +1,4 @@
-import API from '../../@core/api/apiConfig';
+import API from '../../common/api/apiConfig';
 import { PUBLIC_ROUTES } from '../../consts/routes';
 
 

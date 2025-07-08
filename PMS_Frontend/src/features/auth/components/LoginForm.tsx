@@ -1,6 +1,9 @@
 import React from "react";
-import { Formik, Field, ErrorMessage, type FormikHelpers, Form } from "formik";
+import { Formik, type FormikHelpers, Form } from "formik";
 import * as Yup from "yup";
+import SubmitButton from "../../../common/components/SubmitButton";
+import Checkbox from "../../../common/components/Checkbox";
+import InputField from "../../../common/components/TextBox";
 
 interface LoginFormProps {
   loading: boolean;
@@ -26,66 +29,47 @@ const LoginForm: React.FC<LoginFormProps> = ({ loading, onSubmit }) => {
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      {({ isSubmitting }) => (
+      {({ isSubmitting, values, setFieldValue }) => (
         <Form>
           <h2 className="text-2xl font-semibold my-3 text-center text-gray-800">
             Login
           </h2>
 
           <div className="mb-4">
-            <Field
+            <InputField
+              name="email"
               type="email"
-              name="email"
-              placeholder="Email"
-              autoComplete="username"
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-            />
-            <ErrorMessage
-              name="email"
-              component="div"
-              className="text-red-500 text-sm mt-1"
+              placeholder="example@gmail.com"
+              autoComplete="email"
             />
           </div>
 
           <div className="mb-4">
-            <Field
-              type="password"
+            <InputField
               name="password"
+              type="password"
               placeholder="Password"
               autoComplete="current-password"
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-            />
-            <ErrorMessage
-              name="password"
-              component="div"
-              className="text-red-500 text-sm mt-1"
             />
           </div>
 
           <div className="flex items-center justify-between mb-6">
-            <label className="flex items-center space-x-2 text-gray-700 select-none">
-              <Field
-                type="checkbox"
-                name="rememberMe"
-                className="w-4 h-4 rounded border-gray-300 focus:ring-2 focus:ring-blue-500"
-              />
-              <span className="mx-2">Remember me</span>
-            </label>
+            <Checkbox
+              name="rememberMe"
+              label="Remember Me"
+              checked={values.rememberMe}
+              onChange={(e) => setFieldValue("rememberMe", e.target.checked)}
+            />
             <a
-              href="/forgot-password"
+              href="/forgotpassword"
               className="text-blue-600 hover:underline text-sm"
             >
               Forgot password?
             </a>
           </div>
-
-          <button
-            type="submit"
-            className="w-full text-white rounded py-1.5 bg-gray-500 font-semibold hover:bg-gray-700 transition"
-            disabled={loading || isSubmitting}
-          >
+          <SubmitButton className="w-full">
             {loading || isSubmitting ? "Logging in..." : "Login"}
-          </button>
+          </SubmitButton>
         </Form>
       )}
     </Formik>

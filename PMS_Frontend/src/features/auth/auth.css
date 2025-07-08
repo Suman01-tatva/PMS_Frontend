@@ -64,3 +64,6 @@ h5 {
     background-color: var(--colorLight);
     height: 100vh;
 }
+a {
+    text-decoration: none;
+}

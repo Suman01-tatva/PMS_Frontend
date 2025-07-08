@@ -7,11 +7,13 @@ import MainLayout from "../layouts/MainLayout";
 import AuthLayout from "../layouts/AuthLayout";
 import NotFoundPage from "../features/home/NotFoundPage";
 import DashboardPage from "../features/dashboard/DashboardPage";
+import ForgotPasswordPage from "../features/auth/ForgotPasswordPage";
 
 const AppRoutes: React.FC = () => (
   <Routes>
     <Route element={<AuthLayout />}>
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
     </Route>
 
     <Route element={<ProtectedRoutes />}>

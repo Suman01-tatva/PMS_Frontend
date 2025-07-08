@@ -39,7 +39,7 @@ const LoginPage: React.FC = () => {
         toastService.success(response.message || "Login successful!");
         navigate("/dashboard");
     } catch (err) {
-      const errorMessage = handleApiError(err, 'Invalid credentials. Please try again.');
+      const errorMessage = handleApiError(err.message, 'Invalid credentials. Please try again.');
       dispatch(loginFailure(errorMessage));
       toastService.error(errorMessage);
     } finally {
