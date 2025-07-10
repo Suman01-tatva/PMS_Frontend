@@ -1,29 +1,19 @@
 import React from "react";
 import { useField, type FieldHookConfig } from "formik";
 
-interface InputProps {
-  label?: string;
-  type?: string;
-  placeholder?: string;
-  className?: string;
-  disabled?: boolean;
-  id?: string;
-  name: string;
-  autoComplete?: string;
-}
-
 const InputField: React.FC<InputProps & FieldHookConfig<string>> = ({
   label,
   type = "text",
   placeholder,
   className,
-  disabled,
+  disabled=false,
+  readonly,
+  value,
   id,
   name,
   autoComplete,
 }) => {
   const [field, meta] = useField({ name, type });
-  console.log(`Field: ${name}`, { touched: meta.touched, error: meta.error });
   return (
     <div className="mb-4">
       {label && (
@@ -41,6 +31,8 @@ const InputField: React.FC<InputProps & FieldHookConfig<string>> = ({
         placeholder={placeholder}
         autoComplete={autoComplete}
         disabled={disabled}
+        readOnly={readonly}
+        value={value}
         className={`w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition pr-10 ${meta.touched && meta.error ? "focus:ring-2 focus:ring-red-500 focus:border-red-300" : "focus:ring-2 focus:ring-gray-500 focus:border-gray-300"} ${className || ""}`}
       />
       {meta.touched && meta.error ? (

@@ -1,43 +1,100 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import Cookies from "js-cookie";
-interface User {
-  id: string;
-  name: string;
-  email: string;
-}
-
-interface AuthState {
-  isAuthenticated: boolean;
-  user: User | null;
-  loading: boolean;
-  error: string | null;
-}
+import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { hideLoader, showLoader } from "../../common/loader/loaderSlice";
+import { loginUser, forgotPassword, resetPassword, submitResetPassword } from "./authApi";
+import { getAccessToken, storeAccessToken, storeIsAuthenticated, storeUserData } from "../../utils/authUtils";
+import toastService from "../../utils/toastr";
 
 const initialState: AuthState = {
-  isAuthenticated: Cookies.get("access_token") ? true : false,
+  isAuthenticated: getAccessToken() ? true : false,
   user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")!) : null,
   loading: false,
   error: null,
 };
 
+export const loginThunk = createAsyncThunk<
+User, 
+LoginPayload, 
+{ rejectValue: string } 
+>(
+  "auth/login",
+  async (payload: LoginPayload, { dispatch, rejectWithValue }) => {
+    try {
+      dispatch(showLoader());
+
+      const response = await loginUser(payload);
+      storeUserData(response.data.data.user);
+      storeIsAuthenticated(true);
+      storeAccessToken(response.data.data.token!, payload.rememberMe);
+      toastService.success(response.data.message || "Login successful!");
+      return response.data.data.user!;
+    } catch (err) {
+      const errorMessage = err.data.message;
+      toastService.error(errorMessage);
+      return rejectWithValue(errorMessage);
+    } finally {
+      dispatch(hideLoader());
+    }
+  }
+);
+
+export const forgotPasswordThunk = createAsyncThunk(
+  "auth/forgotpassword",
+  async (payload: ForgotPasswordFormValues, { dispatch, rejectWithValue }) => {
+    try {
+      dispatch(showLoader());
+      const response = await forgotPassword(payload);
+      toastService.success(response.data.message);
+      return response.data!;
+    } catch (err) {
+      const errorMessage = err.data.message;
+      toastService.error(errorMessage);
+      return rejectWithValue(errorMessage);
+    } finally {
+      dispatch(hideLoader());
+    }
+  }
+);
+
+export const validateResetTokenThunk = createAsyncThunk(
+  "auth/resetpassword/:token",
+  async (payload: ForgotPasswordToken, { dispatch, rejectWithValue }) => {
+    try {
+      dispatch(showLoader());
+      const response = await resetPassword(payload);
+      return response.data.data!;
+    } catch (err) {
+      const errorMessage = err.data.message;
+      toastService.error(errorMessage);
+      return rejectWithValue(errorMessage);
+    } finally {
+      dispatch(hideLoader());
+    }
+  }
+);
+
+export const submitResetPasswordThunk = createAsyncThunk(
+  "auth/reset-password",
+  async (payload: ResetPasswordFormValues, { dispatch, rejectWithValue }) => {
+    try {
+      dispatch(showLoader());
+      const response = await submitResetPassword(payload);
+      console.log(response);
+      toastService.success(response.data.message);
+      return response.data.data!;
+    } catch (err) {
+      const errorMessage = err.data.message;
+      toastService.error(errorMessage);
+      return rejectWithValue(errorMessage);
+    } finally {
+      dispatch(hideLoader());
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    loginStart(state) {
-      state.loading = true;
-      state.error = null;
-    },
-    loginSuccess(state, action: PayloadAction<User>) {
-      state.loading = false;
-      state.isAuthenticated = true;
-      state.user = action.payload;
-      state.error = null;
-    },
-    loginFailure(state, action: PayloadAction<string>) {
-      state.loading = false;
-      state.error = action.payload;
-    },
     logout(state) {
       state.isAuthenticated = false;
       state.user = null;
@@ -45,7 +102,24 @@ const authSlice = createSlice({
       state.error = null;
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(loginThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(loginThunk.fulfilled, (state, action: PayloadAction<User>) => {
+        state.loading = false;
+        state.isAuthenticated = true;
+        state.user = action.payload;
+        state.error = null;
+      })
+      .addCase(loginThunk.rejected, (state, action: PayloadAction<string>) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+  },
 });
 
-export const { loginStart, loginSuccess, loginFailure, logout } = authSlice.actions;
+export const { logout } = authSlice.actions;
 export default authSlice.reducer;

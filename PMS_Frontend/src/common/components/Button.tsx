@@ -1,4 +1,3 @@
-// src/components/Button.tsx
 import React from "react";
 
 const Button: React.FC<ButtonProps> = ({
@@ -15,7 +14,7 @@ const Button: React.FC<ButtonProps> = ({
     <button
       type={type}
       onClick={onClick}
-      className={`py-1 px-3 rounded font-bold transition-colors duration-300 ${
+      className={`w-full py-1 px-3 rounded font-bold transition-colors duration-300 border ${
         className || ""
       }`}
       style={isHovered ? { ...style, ...hoverStyle } : style}

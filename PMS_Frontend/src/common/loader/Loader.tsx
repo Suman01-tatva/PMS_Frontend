@@ -14,7 +14,7 @@ const Loader: React.FC = () => {
         <PulseLoader
           color="#ffffff"
           loading={isLoading}
-          size={30}
+          size={25}
           aria-label="Loading Spinner"
           data-testid="loader"
         />

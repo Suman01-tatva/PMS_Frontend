@@ -1,32 +1,17 @@
 import React from "react";
-import { Formik, type FormikHelpers, Form } from "formik";
-import * as Yup from "yup";
-import SubmitButton from "../../../common/components/SubmitButton";
+import { Formik, Form } from "formik";
 import Checkbox from "../../../common/components/Checkbox";
 import InputField from "../../../common/components/TextBox";
-
-interface LoginFormProps {
-  loading: boolean;
-  error?: string | null;
-  onSubmit: (
-    values: LoginFormValues,
-    helpers: FormikHelpers<LoginFormValues>
-  ) => void | Promise<void>;
-}
-
-const validationSchema = Yup.object({
-  email: Yup.string()
-    .email("Invalid email address")
-    .required("Email is required"),
-  password: Yup.string().required("Password is required"),
-  rememberMe: Yup.boolean(),
-});
+import "../../../common/style/formControl.css";
+import Button from "../../../common/components/Button";
+import { loginValidationSchema } from "../schema/loginSechema";
+import { PUBLIC_ROUTES } from "../../../consts/routes";
 
 const LoginForm: React.FC<LoginFormProps> = ({ loading, onSubmit }) => {
   return (
     <Formik
       initialValues={{ email: "", password: "", rememberMe: false }}
-      validationSchema={validationSchema}
+      validationSchema={loginValidationSchema}
       onSubmit={onSubmit}
     >
       {({ isSubmitting, values, setFieldValue }) => (
@@ -61,15 +46,17 @@ const LoginForm: React.FC<LoginFormProps> = ({ loading, onSubmit }) => {
               onChange={(e) => setFieldValue("rememberMe", e.target.checked)}
             />
             <a
-              href="/forgotpassword"
+              href={PUBLIC_ROUTES.FORGOTPASSWORD}
               className="text-blue-600 hover:underline text-sm"
             >
               Forgot password?
             </a>
           </div>
-          <SubmitButton className="w-full">
-            {loading || isSubmitting ? "Logging in..." : "Login"}
-          </SubmitButton>
+          <div className="w-full">
+            <Button className="submit-btn" type="submit">
+              {loading || isSubmitting ? "Logging in..." : "Login"}
+            </Button>
+          </div>
         </Form>
       )}
     </Formik>

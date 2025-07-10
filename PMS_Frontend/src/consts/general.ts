@@ -1,4 +1,3 @@
-export const TOP_BAR_HEADING = 'ReactJs Boilterplate';
 export const LOGIN = 'Login';
 export const LOGOUT = 'Logout';
 export const SUBMIT = 'Submit';

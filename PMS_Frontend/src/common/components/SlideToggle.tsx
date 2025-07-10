@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 
-export default function Toggle({
+export default function SlideToggle({
   label,
   initial = false,
   onToggle,
@@ -19,12 +19,12 @@ export default function Toggle({
       {label && <span className="text-sm font-medium">{label}</span>}
       <button
         onClick={handleToggle}
-        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+        className={`relative inline-flex h-6 w-11 items-center rounded-5 transition-colors ${
           enabled ? "bg-green-500" : "bg-gray-300"
         }`}
       >
         <span
-          className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+          className={`inline-block h-4 w-4 transform rounded-5 bg-white transition-transform ${
             enabled ? "translate-x-6" : "translate-x-1"
           }`}
         />

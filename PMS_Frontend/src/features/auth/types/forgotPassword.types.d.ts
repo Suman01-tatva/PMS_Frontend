@@ -1,26 +1,20 @@
-declare interface LoginResponse {
+declare interface ForgotPasswordFormValues {
+  email: string;
+}
+
+declare interface ForgotPasswordToken {
+  token: string;
+}
+
+declare interface ForgotPasswordResponse {
   isSuccess: boolean;
+  statusCode: number;
   data: {
-    user?: {
-      id: string;
-      name: string;
-      email: string;
-    };
-    token?: string;
+    message: string;
   };
   message?: string;
 }
 
-declare interface LoginFormValues {
-  email: string;
-  password: string;
-  rememberMe: boolean;
-}
-
-declare interface ForgotPasswordFormValues {
-  email: string;
-}
- 
 declare interface ForgotPasswordFormProps {
   loading: boolean;
   error?: string | null;

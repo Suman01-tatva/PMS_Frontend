@@ -1,9 +1,11 @@
+const API_URL = import.meta.env.API_URL || "http://localhost:5254/api";
+
 export const PUBLIC_ROUTES = {
   HOME: "/",
-  NOTFOUND: "*",
-  LOGIN: `/login`,
-  FORGOTPASSWORD: `/forgot-password`,
-  RESETPASSWORD: `/reset-password/:token`,
+  LOGIN: `${API_URL}/Auth/login`,
+  FORGOTPASSWORD: `${API_URL}/Auth/forgotpassword`,
+  RESETPASSWORD: `${API_URL}/Auth/resetpassword/:token`,
+  SUBMITRESETPASSWORD: `${API_URL}/Auth/reset-password`,
 };
 
 export const PRIVATE_ROUTES = {

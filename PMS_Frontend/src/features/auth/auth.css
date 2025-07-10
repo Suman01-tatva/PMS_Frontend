@@ -44,11 +44,11 @@ h5 {
     background-color: var(--colorBlack);
     color: var(--colorLightgreen);   
 }
+
 #resetPasswordBtn{
     background-color: var(--colorBlack);
     color: var(--colorLightgreen);   
 }
-
 
 #resetPasswordBtn:hover {
     background-color: var(--colorGrey);
@@ -59,11 +59,11 @@ h5 {
     color: white;
 }
 
-
 #login-page {
     background-color: var(--colorLight);
     height: 100vh;
 }
+
 a {
     text-decoration: none;
 }

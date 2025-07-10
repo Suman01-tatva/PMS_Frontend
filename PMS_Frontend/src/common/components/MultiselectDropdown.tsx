@@ -1,17 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useField, useFormikContext } from 'formik';
 
-interface Option {
-  value: string;
-  label: string;
-}
-
-interface MultiSelectDropdownProps {
-  name: string;
-  label: string;
-  options: Option[];
-}
-
 const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({ name, label, options }) => {
   const [field, meta] = useField(name);
   const { setFieldValue } = useFormikContext();

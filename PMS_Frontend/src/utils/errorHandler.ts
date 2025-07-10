@@ -1,6 +1,4 @@
 import { AxiosError } from "axios";
-
-// Define the structure of the API error response
 export interface ApiErrorResponse {
   data: {
     isSuccess: boolean;
