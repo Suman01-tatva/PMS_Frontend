@@ -28,7 +28,7 @@ LoginPayload,
       toastService.success(response.data.message || "Login successful!");
       return response.data.data.user!;
     } catch (err) {
-      const errorMessage = err.data.message;
+      const errorMessage = err;
       toastService.error(errorMessage);
       return rejectWithValue(errorMessage);
     } finally {
@@ -46,7 +46,7 @@ export const forgotPasswordThunk = createAsyncThunk(
       toastService.success(response.data.message);
       return response.data!;
     } catch (err) {
-      const errorMessage = err.data.message;
+      const errorMessage = err;
       toastService.error(errorMessage);
       return rejectWithValue(errorMessage);
     } finally {
@@ -63,7 +63,7 @@ export const validateResetTokenThunk = createAsyncThunk(
       const response = await resetPassword(payload);
       return response.data.data!;
     } catch (err) {
-      const errorMessage = err.data.message;
+      const errorMessage = err;
       toastService.error(errorMessage);
       return rejectWithValue(errorMessage);
     } finally {
@@ -82,7 +82,7 @@ export const submitResetPasswordThunk = createAsyncThunk(
       toastService.success(response.data.message);
       return response.data.data!;
     } catch (err) {
-      const errorMessage = err.data.message;
+      const errorMessage = err;
       toastService.error(errorMessage);
       return rejectWithValue(errorMessage);
     } finally {

@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
 import { logout } from "../../features/auth/authSlice";
 import Cookies from "js-cookie";
-import DeleteConfirmationModal from "./ConfirmationPopUp"; 
+import DeleteConfirmationModal from "./PopUpModal"; 
 import userImg from "../../assets/images/default_user.png";
 import { FaBars, FaBell, FaUser, FaTimes } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";

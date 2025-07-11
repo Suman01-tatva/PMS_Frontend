@@ -1,20 +1,8 @@
-import API from "../../common/api/apiConfig";
+import { GET, POST } from "../../common/api/apiConfig";
 import { PUBLIC_ROUTES } from "../../consts/api.routes";
 
-// PRIVATE_ROUTES.USER_ROUTES.CREATE;
-// export const getProduct = () => {
-//   return API('GET', product.index)
-//     .then((res) => {
-//       return res;
-//     })
-//     .catch((error) => {
-//       throw error;
-//     });
-// };
-
 export const loginUser = (data: LoginFormValues) => {
-  const response = API<LoginFormValues, LoginResponse>(
-    "POST",
+  const response = POST<LoginFormValues, LoginResponse>(
     PUBLIC_ROUTES.LOGIN,
     data
   );
@@ -22,17 +10,15 @@ export const loginUser = (data: LoginFormValues) => {
 };
 
 export const forgotPassword = (data: ForgotPasswordFormValues) => {
-  const response = API<ForgotPasswordFormValues, ForgotPasswordResponse>(
-    "POST",
-    PUBLIC_ROUTES.FORGOTPASSWORD,
+  const response = POST<ForgotPasswordFormValues, ForgotPasswordResponse>(
+    PUBLIC_ROUTES.FORGOTPASSWORD.replace(":email", data.email),
     data
   );
   return response;
 };
 
 export const resetPassword = (data: ForgotPasswordToken) => {
-  const response = API<ForgotPasswordToken, ResetPasswordResponse>(
-    "GET",
+  const response = GET<ForgotPasswordToken, ResetPasswordResponse>(
     PUBLIC_ROUTES.RESETPASSWORD.replace(":token", data.token),
   );
   return response;
@@ -40,40 +26,9 @@ export const resetPassword = (data: ForgotPasswordToken) => {
 
 export const submitResetPassword = (data: ResetPasswordFormValues) => {
   console.log("submitResetPassword", data);
-  const response = API<ResetPasswordFormValues, ApiResponse<null>>(
-    "POST",
+  const response = POST<ResetPasswordFormValues, ApiResponse<null>>(
     PUBLIC_ROUTES.SUBMITRESETPASSWORD,
     data
   );
   return response;
 };
-
-// export const getEditProduct = (id) => {
-//   return API('GET', `${product.index}/${id}`)
-//     .then((res) => {
-//       return res;
-//     })
-//     .catch((error) => {
-//       throw error;
-//     });
-// };
-
-// export const updateProduct = (id, data) => {
-//   return API('PUT', `${product.index}/${id}`, data)
-//     .then((res) => {
-//       return res;
-//     })
-//     .catch((error) => {
-//       throw error;
-//     });
-// };
-
-// export const deleteProduct = (id) => {
-//   return API('DELETE', `${product.index}/${id}`)
-//     .then((res) => {
-//       return res;
-//     })
-//     .catch((error) => {
-//       throw error;
-//     });
-// };

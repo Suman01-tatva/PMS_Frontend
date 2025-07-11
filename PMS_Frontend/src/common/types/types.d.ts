@@ -25,7 +25,7 @@ declare interface ToggleProps {
   onToggle?: (state: boolean) => void;
 }
 
-declare interface ConfirmationModalProps {
+declare interface PopUpModalProps {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
@@ -33,6 +33,8 @@ declare interface ConfirmationModalProps {
   message: string;
   confirmText?: string;
   cancelText?: string;
+  size?: 'sm' | 'lg' | 'xl' | 'md';
+  children?: React.ReactNode;
 }
 
 declare interface ExtraProps {
@@ -70,4 +72,10 @@ declare interface InputProps {
   id?: string;
   name: string;
   autoComplete?: string;
+}
+
+interface ErrorResponseData {
+  errors?: Record<string, string[]>;
+  message?: string;
+  [key: string]: undefined | string | Record<string, string[]>;
 }

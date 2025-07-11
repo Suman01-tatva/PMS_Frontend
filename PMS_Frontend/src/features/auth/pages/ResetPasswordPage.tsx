@@ -1,75 +1,13 @@
-// import React, { useEffect } from "react";
-// import { useNavigate, useParams } from "react-router-dom";
-// import { useAppDispatch, useAppSelector } from "../../../app/hook";
-// import ResetPasswordForm from "../components/ResetPasswordFoorm";
-// import { resetPasswordThunk } from "../authSlice";
-
-// const ResetPasswordPage: React.FC = () => {
-//   const dispatch = useAppDispatch();
-//   const navigate = useNavigate();
-//   const { loading, error, isAuthenticated } = useAppSelector(
-//     (state) => state.auth
-//   );
-//   const [email, setEmail] = React.useState<string>("");
-//   const { token } = useParams();
-
-//   useEffect(() => {
-//     if (isAuthenticated) {
-//       navigate("/dashboard");
-//     }
-//   }, [isAuthenticated, navigate]);
-
-//   useEffect(() => {
-//     if (!token) {
-//       navigate("/login");
-//       return;
-//     }
-//     const isValidToken = async (values: ForgotPasswordToken) => {
-//       const resultAction = await dispatch(resetPasswordThunk(values));
-//       if (resetPasswordThunk.fulfilled.match(resultAction)) {
-//         setEmail(resultAction.payload.email);
-//         console.log(email);
-//         return true;
-//       }
-//       return false;
-//     };
-
-//     if (!isValidToken) {
-//       navigate("/login");
-//     }
-//   }
-// , [token, navigate, dispatch]);
-
-//   const handleResetPassword = async (
-//     values: ResetPasswordFormValues,
-//     { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
-//   ) => {
-//     // const resultAction = await dispatch(resetPasswordThunk(values));
-//     // if (resetPasswordThunk.fulfilled.match(resultAction)) {
-//     //   navigate("/login");
-//     // }
-//     setSubmitting(false);
-//   };
-
-//   return (
-//     <div>
-//       <ResetPasswordForm
-//         loading={loading}
-//         error={error}
-//         onSubmit={handleResetPassword}
-//       />
-//     </div>
-//   );
-// };
-
-// export default ResetPasswordPage;
-
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../app/hook";
-import { submitResetPasswordThunk, validateResetTokenThunk } from "../authSlice";
+import {
+  submitResetPasswordThunk,
+  validateResetTokenThunk,
+} from "../authSlice";
 import ResetPasswordForm from "../components/ResetPasswordFoorm";
 import { toast } from "react-toastify";
+import toastService from "../../../utils/toastr";
 
 const ResetPasswordPage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -91,15 +29,21 @@ const ResetPasswordPage: React.FC = () => {
 
     const validateToken = async () => {
       if (!token) {
-        if (isMounted) navigate("/login");
-        return;
+        if (isMounted) {
+          navigate("/login");
+          toastService.error("Invalid Link or missing token.");
+          return;
+        }
       }
 
       try {
         const resultAction = await dispatch(
           validateResetTokenThunk({ token } as ForgotPasswordToken)
         );
-        if (isMounted && validateResetTokenThunk.fulfilled.match(resultAction)) {
+        if (
+          isMounted &&
+          validateResetTokenThunk.fulfilled.match(resultAction)
+        ) {
           setEmail(resultAction.payload.email);
         } else if (isMounted) {
           navigate("/login");
@@ -122,7 +66,10 @@ const ResetPasswordPage: React.FC = () => {
   ) => {
     try {
       const resultAction = await dispatch(
-        submitResetPasswordThunk({ ...values, Email: email } as ResetPasswordFormValues)
+        submitResetPasswordThunk({
+          ...values,
+          Email: email,
+        } as ResetPasswordFormValues)
       );
       if (submitResetPasswordThunk.fulfilled.match(resultAction)) {
         navigate("/login");
@@ -140,7 +87,7 @@ const ResetPasswordPage: React.FC = () => {
         loading={loading}
         error={error}
         onSubmit={handleResetPassword}
-        email={email} 
+        email={email}
       />
     </div>
   );

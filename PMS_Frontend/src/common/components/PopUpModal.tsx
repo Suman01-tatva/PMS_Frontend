@@ -1,14 +1,16 @@
-import React from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import React from "react";
+import { Modal, Button } from "react-bootstrap";
 
-const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
+const PopUpModal: React.FC<PopUpModalProps> = ({
   isOpen,
   onClose,
   onConfirm,
   title,
   message,
-  confirmText = 'Yes',
-  cancelText = 'No',
+  confirmText = "Yes",
+  cancelText = "No",
+  size = "sm",
+  children = null,
 }) => {
   return (
     <Modal
@@ -18,6 +20,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
       backdrop="static"
       keyboard={false}
       animation={true}
+      size={size}
     >
       <Modal.Header className="border-0">
         <Modal.Title as="h1" className="fs-5">
@@ -33,14 +36,23 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
         </button>
       </Modal.Header>
       <Modal.Body className="text-center p-1">
-        <i className="fa-solid fa-triangle-exclamation fa-2xl" style={{ color: '#FFD43B' }} />
-        <p className="fw-bold mb-0">{message}</p>
+        {children !== null ? (
+          children
+        ) : (
+          <>
+            <i
+              className="fa-solid fa-triangle-exclamation fa-2xl"
+              style={{ color: "#FFD43B" }}
+            />
+            <p className="fw-bold mb-0">{message}</p>
+          </>
+        )}
       </Modal.Body>
       <Modal.Footer className="d-flex justify-content-center border-0">
-        <Button variant="primary" onClick={onConfirm}>
+        <Button className="submit-btn" variant="primary" onClick={onConfirm}>
           {confirmText}
         </Button>
-        <Button variant="secondary" onClick={onClose}>
+        <Button className="cancel-btn" variant="secondary" onClick={onClose}>
           {cancelText}
         </Button>
       </Modal.Footer>
@@ -48,4 +60,4 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   );
 };
 
-export default ConfirmationModal;
+export default PopUpModal;
