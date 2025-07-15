@@ -3,6 +3,7 @@ import { Formik, Form } from "formik";
 import InputField from "../../../common/components/TextBox";
 import Button from "../../../common/components/Button";
 import { resetPasswordValidationSchema } from "../schema/resetPasswordSchema";
+import { fieldPresets } from "../../common/types/formTypes";
 
 const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
   loading,
@@ -32,20 +33,16 @@ const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
       <div className="row d-flex justify-content-center align-items-center">
         <Formik
           initialValues={{ Email: email, NewPassword: "", ConfirmPassword: "" }}
+          enableReinitialize={true}
           validationSchema={resetPasswordValidationSchema}
           onSubmit={onSubmit}
         >
-          {({ isSubmitting }) => (
+          {({ isSubmitting, values }) => (
             <Form id="resetPasswordForm">
               <div className="mb-3 position-relative">
                 <InputField
-                  name="Email"
-                  type="email"
                   value={email}
-                  disabled={true}
-                  className="form-control p-2"
-                  id="Email"
-                  placeholder="Email Address*"
+                  {...fieldPresets.resetPasswordEmail}
                 />
                 <input type="hidden" name="email" id="email" value={email} />
                 <span className="form-input-icon">
@@ -54,11 +51,8 @@ const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
               </div>
               <div className="mb-3 position-relative">
                 <InputField
-                  name="NewPassword"
-                  type="password"
-                  placeholder="New Password*"
-                  className="form-control p-2"
-                  id="NewPassword"
+                  value={values.NewPassword}
+                  {...fieldPresets.newPassword}
                 />
                 <span className="form-input-icon">
                   <i
@@ -75,13 +69,10 @@ const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
               </div>
               <div className="mb-3 position-relative">
                 <InputField
-                  name="ConfirmPassword"
-                  type="password"
-                  placeholder="Confirm New Password*"
-                  className="form-control p-2"
-                  id="ConfirmPassword"
+                  value={values.ConfirmPassword}
+                  {...fieldPresets.confirmPassword}
                 />
-                <span className="form-input-icon">
+                {/* <span className="form-input-icon">
                   <i
                     className="fas fa-eye eye-icon"
                     style={{ color: "gray", cursor: "pointer" }}
@@ -92,7 +83,7 @@ const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
                       )
                     }
                   ></i>
-                </span>
+                </span> */}
               </div>
               {error && <div className="text-danger fs-6 mb-3">{error}</div>}
               <div className="my-3">

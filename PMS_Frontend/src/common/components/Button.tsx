@@ -1,30 +1,33 @@
 import React from "react";
+import { Button as MUIButton, type ButtonProps as MUIButtonProps } from "@mui/material";
 
-const Button: React.FC<ButtonProps> = ({
+interface CustomButtonProps extends MUIButtonProps {
+  children: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+const Button: React.FC<CustomButtonProps> = ({
   children,
   onClick,
   type = "button",
   className,
   style,
-  hoverStyle,
+  ...rest
 }) => {
-  const [isHovered, setIsHovered] = React.useState(false);
-
   return (
-    <button
+    <MUIButton
+      variant="contained" 
       type={type}
       onClick={onClick}
-      className={`w-full py-1 px-3 rounded font-bold transition-colors duration-300 border ${
-        className || ""
-      }`}
-      style={isHovered ? { ...style, ...hoverStyle } : style}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      className={className}
+      style={style}
+      fullWidth={true}
+      {...rest} 
     >
       {children}
-    </button>
+    </MUIButton>
   );
 };
 
 export default Button;
-

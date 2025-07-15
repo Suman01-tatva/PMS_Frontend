@@ -78,7 +78,6 @@ export const submitResetPasswordThunk = createAsyncThunk(
     try {
       dispatch(showLoader());
       const response = await submitResetPassword(payload);
-      console.log(response);
       toastService.success(response.data.message);
       return response.data.data!;
     } catch (err) {

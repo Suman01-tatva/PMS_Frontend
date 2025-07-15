@@ -32,5 +32,5 @@ export const PRIVATE_ROUTES = {
   PROJECT: "/project",
   SPRINT: "/sprint/:id",
   TASK: "/task/:id",
-  PROFILE: "/profile",
+  PROFILE: "/user/profile/:id",
 };

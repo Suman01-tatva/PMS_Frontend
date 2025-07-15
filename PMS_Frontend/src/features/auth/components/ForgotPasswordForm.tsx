@@ -5,6 +5,7 @@ import InputField from "../../../common/components/TextBox";
 import Button from "../../../common/components/Button";
 import "../auth.css";
 import { validationSchema } from "../schema/forgotPasswordSchema";
+import { fieldPresets } from "../../common/types/formTypes";
 
 const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({
   loading,
@@ -23,23 +24,15 @@ const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
-        {({ isSubmitting }) => (
+        {({ isSubmitting, values }) => (
           <Form id="forgotPasswordForm">
             <div className="form-input-div mt-3 relative">
-              <InputField
-                name="email"
-                type="email"
-                placeholder="example@gmail.com"
-                autoComplete="email"
-              />
+              <InputField value={values.email} {...fieldPresets.email} />
             </div>
             {error && <div className="text-danger fs-6 mx-2 mb-3">{error}</div>}
 
             <div className="my-3">
-              <Button
-                type="submit"
-                className="submit-btn"
-              >
+              <Button type="submit" className="submit-btn">
                 {loading || isSubmitting ? "Submitting..." : "Reset Password"}
               </Button>
             </div>

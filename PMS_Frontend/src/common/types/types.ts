@@ -1,31 +1,32 @@
-declare interface ButtonProps {
+export interface ButtonProps {
   children: React.ReactNode;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   type?: "button" | "submit" | "reset";
   className?: string;
   style?: React.CSSProperties;
+  disabled?: boolean;
   hoverStyle?: React.CSSProperties;
 }
 
-declare interface CancelButtonProps {
+export interface CancelButtonProps {
   children: React.ReactNode;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   className?: string;
 }
 
-declare interface SubmitButtonProps {
+export interface SubmitButtonProps {
   children: React.ReactNode;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   className?: string;
 }
 
-declare interface ToggleProps {
+export interface ToggleProps {
   label?: string;
   initial?: boolean;
   onToggle?: (state: boolean) => void;
 }
 
-declare interface PopUpModalProps {
+export interface PopUpModalProps {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
@@ -33,49 +34,61 @@ declare interface PopUpModalProps {
   message: string;
   confirmText?: string;
   cancelText?: string;
-  size?: 'sm' | 'lg' | 'xl' | 'md';
+  size?: "sm" | "lg" | "xl" | "md";
   children?: React.ReactNode;
 }
 
-declare interface ExtraProps {
+export interface ExtraProps {
   label?: string;
   placeholder?: string;
   className?: string;
   disabled?: boolean;
   id?: string;
   errorRingColor?: string;
-  ringColor?: string; 
+  ringColor?: string;
 }
 
-declare interface DropdownOption {
+export interface DropdownOption {
   value: string;
   label: string;
 }
 
-declare interface Option {
+export interface Option {
   value: string;
   label: string;
 }
 
-declare interface MultiSelectDropdownProps {
+export interface MultiSelectDropdownProps {
   name: string;
   label: string;
   options: Option[];
 }
 
-declare interface InputProps {
-  label?: string;
-  type?: string;
-  placeholder?: string;
-  className?: string;
-  disabled?: boolean;
-  id?: string;
-  name: string;
+export interface InputProps extends CommonProps{
+  type: 'email' | 'text'| 'password' | 'number' | 'date' ;
   autoComplete?: string;
+  disabled?: boolean;
+  readonly?: boolean;
 }
 
-interface ErrorResponseData {
+export interface CommonProps {
+  id: string;
+  name: string;
+  value?: string | number | boolean;
+  label?: string;
+  placeholder?: string;
+  className?: string;
+}
+
+export interface ErrorResponseData {
   errors?: Record<string, string[]>;
   message?: string;
   [key: string]: undefined | string | Record<string, string[]>;
+}
+
+export interface CheckboxProps {
+  label: string;
+  name: string;
+  disabled?: boolean;
+  className?: string;
 }

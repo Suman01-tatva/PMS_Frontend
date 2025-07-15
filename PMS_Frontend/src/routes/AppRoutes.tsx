@@ -10,6 +10,9 @@ import DashboardPage from "../features/dashboard/DashboardPage";
 import ForgotPasswordPage from "../features/auth/pages/ForgotPasswordPage";
 import ResetPasswordPage from "../features/auth/pages/ResetPasswordPage";
 import { PRIVATE_ROUTES, PUBLIC_ROUTES } from "../consts/routes";
+import Users from "../features/user/pages/Users";
+import Projects from "../features/project/pages/Projects";
+import ProfilePage from "../features/user/pages/ProfilePage";
 
 const AppRoutes: React.FC = () => (
   <Routes>
@@ -22,7 +25,9 @@ const AppRoutes: React.FC = () => (
     <Route element={<ProtectedRoutes />}>
       <Route element={<MainLayout />}>
         <Route path={PRIVATE_ROUTES.DASHBOARD}element={<DashboardPage />} />
-        {/* <Route path="/user" element={<UserPage />} /> */}
+        <Route path={PRIVATE_ROUTES.PROFILE}element={<ProfilePage />} />
+        <Route path={PRIVATE_ROUTES.USER} element={<Users />} />
+        <Route path={PRIVATE_ROUTES.PROJECT} element={<Projects />} />
       </Route>
     </Route>
 

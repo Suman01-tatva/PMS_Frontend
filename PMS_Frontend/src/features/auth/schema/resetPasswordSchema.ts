@@ -1,7 +1,6 @@
 import * as Yup from 'yup';
 
 export const resetPasswordValidationSchema = Yup.object({
-  Email: Yup.string(),
   NewPassword: Yup.string()
     .min(6, 'Password must be at least 6 characters')
     .matches(

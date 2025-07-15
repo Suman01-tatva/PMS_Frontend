@@ -1,45 +1,52 @@
 import React from 'react';
-import { type FieldProps } from 'formik';
+import { useField } from 'formik';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { type SelectChangeEvent } from '@mui/material/Select';
+import FormHelperText from '@mui/material/FormHelperText';
 
-declare interface DropdownFieldProps extends FieldProps {
+interface Option {
+  value: string | number;
   label: string;
-  options: DropdownOption[];
-  placeholder?: string;
 }
 
-const Dropdown: React.FC<DropdownFieldProps> = ({
-  field, 
-  form: { touched, errors }, 
-  label,
-  options,
-  placeholder,
-}) => {
-  const hasError = touched[field.name] && errors[field.name];
+interface DropdownFieldProps {
+  name: string;
+  label: string;
+  options: Option[];
+  fullWidth?: boolean;
+}
+
+const DropdownField: React.FC<DropdownFieldProps> = ({ name, label, options, fullWidth = true }) => {
+  const [field, meta, helpers] = useField(name);
+
+  const handleChange = (event: SelectChangeEvent<typeof field.value>) => {
+    const { value } = event.target;
+    helpers.setValue(value);
+  };
+
+  const showError = Boolean(meta.touched && meta.error);
 
   return (
-    <div className="mb-4">
-      <label htmlFor={field.name} className="block text-gray-700 text-sm font-bold mb-2">
-        {label}
-      </label>
-      <select
-        id={field.name}
-        {...field}
-        className={`h-14 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-          hasError ? 'border-red-500' : ''
-        }`}
+    <FormControl fullWidth={fullWidth} error={showError} margin="normal">
+      <InputLabel id={`${name}-label`}>{label}</InputLabel>
+      <Select
+        labelId={`${name}-label`}
+        id={name}
+        label={label}
+        value={field.value || ''}
+        onChange={handleChange}
       >
-        {placeholder && <option value="">{placeholder}</option>}
         {options.map((option) => (
-          <option key={option.value} value={option.value}>
+          <MenuItem key={option.value} value={option.value}>
             {option.label}
-          </option>
+          </MenuItem>
         ))}
-      </select>
-      {hasError && (
-        <p className="text-red-500 text-xs italic mt-1">{errors[field.name] as string}</p>
-      )}
-    </div>
+      </Select>
+      {showError && <FormHelperText>{meta.error}</FormHelperText>}
+    </FormControl>
   );
 };
 
-export default Dropdown;
+export default DropdownField;

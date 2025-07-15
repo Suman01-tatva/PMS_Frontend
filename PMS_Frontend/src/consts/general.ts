@@ -16,3 +16,12 @@ export const navItemClass = (path: string, currentPath: string) =>
   `px-3 py-2 rounded hover:bg-gray-200 transition-colors ${
     currentPath === path ? "font-semibold text-blue-600 underline-none bg-gray-300" : ""
   }`;
+
+export const inputFieldTypes = {
+  TEXT: "text",
+  PASSWORD: "password",
+  EMAIL: "email",
+  NUMBER: "number",
+  DATE: "date",
+  TIME: "time",
+};

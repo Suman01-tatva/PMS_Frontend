@@ -4,6 +4,7 @@ import { IoIosLogOut } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
 import userImg from "../../assets/images/default_user.png";
 import { useAppSelector } from "../../app/hook";
+import { PRIVATE_ROUTES } from "../../consts/routes";
 
 const ProfileDropdown: React.FC<{ onLogoutClick: () => void }> = ({
   onLogoutClick,
@@ -21,7 +22,7 @@ const ProfileDropdown: React.FC<{ onLogoutClick: () => void }> = ({
       </li>
       <li>
         <Link
-          to="/profile"
+          to={PRIVATE_ROUTES.PROFILE}
           className="w-full px-4 py-2 items-center hover:bg-gray-100 flex gap-2"
         >
           <FaUser />

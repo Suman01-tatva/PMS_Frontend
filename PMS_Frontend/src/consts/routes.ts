@@ -28,7 +28,7 @@ export const PRIVATE_ROUTES = {
     EDIT: "/task/update/:id",
     LIST: "/task/list",
   },
-  USER: "/user",
+  USER: "/users",
   PROJECT: "/project",
   SPRINT: "/sprint/:id",
   TASK: "/task/:id",

@@ -1,21 +1,26 @@
-import React, { type InputHTMLAttributes } from "react";
+import React from "react";
+import MuiCheckbox, { type CheckboxProps as MuiCheckboxProps } from "@mui/material/Checkbox";
 
-interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
+interface CustomCheckboxProps extends MuiCheckboxProps {
   label: string;
   id?: string;
   className?: string;
 }
 
-const Checkbox: React.FC<CheckboxProps> = ({ label, id, className, ...rest }) => {
+const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
+  label,
+  id,
+  className,
+  ...rest
+}) => {
   return (
     <label
       htmlFor={id}
       className={`flex items-center space-x-2 select-none cursor-pointer text-[var(--colorGrey)] ${className || ""}`}
     >
-      <input
-        type="checkbox"
+      <MuiCheckbox
         id={id}
-        className="w-4 h-4 rounded border-2 focus:ring-2 focus:ring-[var(--colorLightgreen)] border-[var(--colorGrey)] text-[var(--colorBlack)]"
+        className="cursor-pointer"
         {...rest}
       />
       <span className="mx-2">{label}</span>
@@ -23,4 +28,4 @@ const Checkbox: React.FC<CheckboxProps> = ({ label, id, className, ...rest }) =>
   );
 };
 
-export default Checkbox;
+export default CustomCheckbox;

@@ -1,5 +1,6 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
+import type { PopUpModalProps } from "../types/types";
 
 const PopUpModal: React.FC<PopUpModalProps> = ({
   isOpen,
@@ -26,14 +27,13 @@ const PopUpModal: React.FC<PopUpModalProps> = ({
         <Modal.Title as="h1" className="fs-5">
           {title}
         </Modal.Title>
-        <button
-          type="button"
+        <Button
           className="btn-close"
           onClick={onClose}
           aria-label="Close"
         >
           <i className="fa-solid fa-xmark text-gray-500 text-xl" />
-        </button>
+        </Button>
       </Modal.Header>
       <Modal.Body className="text-center p-1">
         {children !== null ? (

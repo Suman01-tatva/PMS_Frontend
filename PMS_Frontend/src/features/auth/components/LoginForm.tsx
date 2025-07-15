@@ -1,11 +1,12 @@
 import React from "react";
 import { Formik, Form } from "formik";
 import Checkbox from "../../../common/components/Checkbox";
-import InputField from "../../../common/components/TextBox";
 import "../../../common/style/formControl.css";
 import Button from "../../../common/components/Button";
 import { loginValidationSchema } from "../schema/loginSechema";
 import { PUBLIC_ROUTES } from "../../../consts/routes";
+import InputField from "../../../common/components/TextBox";
+import { fieldPresets } from "../../common/types/formTypes";
 
 const LoginForm: React.FC<LoginFormProps> = ({ loading, onSubmit }) => {
   return (
@@ -21,21 +22,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ loading, onSubmit }) => {
           </h2>
 
           <div className="mb-4">
-            <InputField
-              name="email"
-              type="email"
-              placeholder="example@gmail.com"
-              autoComplete="email"
-            />
+            <InputField value={values.email} {...fieldPresets.email} />
           </div>
 
           <div className="mb-4">
-            <InputField
-              name="password"
-              type="password"
-              placeholder="Password"
-              autoComplete="current-password"
-            />
+            <InputField value={values.password} {...fieldPresets.password} />
           </div>
 
           <div className="flex items-center justify-between mb-6">
@@ -52,8 +43,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ loading, onSubmit }) => {
               Forgot password?
             </a>
           </div>
-          <div className="w-full">
-            <Button className="submit-btn" type="submit">
+          <div>
+            <Button type="submit" className="submit-btn">
               {loading || isSubmitting ? "Logging in..." : "Login"}
             </Button>
           </div>
