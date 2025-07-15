@@ -31,7 +31,7 @@ export interface PopUpModalProps {
   onClose: () => void;
   onConfirm: () => void;
   title: string;
-  message: string;
+  message?: string;
   confirmText?: string;
   cancelText?: string;
   size?: "sm" | "lg" | "xl" | "md";
@@ -64,7 +64,7 @@ export interface MultiSelectDropdownProps {
   options: Option[];
 }
 
-export interface InputProps extends CommonProps{
+export interface InputFieldProps extends CommonProps{
   type: 'email' | 'text'| 'password' | 'number' | 'date' ;
   autoComplete?: string;
   disabled?: boolean;
@@ -91,4 +91,10 @@ export interface CheckboxProps {
   name: string;
   disabled?: boolean;
   className?: string;
+}
+
+export interface CustomButtonProps extends ButtonProps {
+  className?: string;
+  style?: React.CSSProperties;
+  to?: string;  
 }

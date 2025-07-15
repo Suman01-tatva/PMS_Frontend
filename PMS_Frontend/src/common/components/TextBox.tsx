@@ -1,14 +1,10 @@
 import React from "react";
 import { TextField } from "@mui/material";
 import { useFieldError } from "../../hooks/useFieldError";
-import type { InputProps } from "../types/types";
+import type { InputFieldProps } from "../types/types";
 
-const InputField: React.FC<InputProps> = ({
-  type = "text",
-  disabled = false,
-  readonly = false,
-  ...props
-}) => {
+const InputField: React.FC<{ inputConfig: InputFieldProps }> = ({ inputConfig }) => {
+  const { type = "text", disabled = false, readonly = false, ...props } = inputConfig;
   const { field, showError, helperText } = useFieldError(props);
   return (
     <div>

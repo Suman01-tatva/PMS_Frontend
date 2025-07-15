@@ -3,7 +3,7 @@ import { Formik, Form } from "formik";
 import InputField from "../../../common/components/TextBox";
 import Button from "../../../common/components/Button";
 import { resetPasswordValidationSchema } from "../schema/resetPasswordSchema";
-import { fieldPresets } from "../../common/types/formTypes";
+import { buttonConfigs, inputFieldConfigs } from "../../common/types/formControllTypes";
 
 const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
   loading,
@@ -37,23 +37,17 @@ const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
           validationSchema={resetPasswordValidationSchema}
           onSubmit={onSubmit}
         >
-          {({ isSubmitting, values }) => (
+          {({ isSubmitting }) => (
             <Form id="resetPasswordForm">
               <div className="mb-3 position-relative">
-                <InputField
-                  value={email}
-                  {...fieldPresets.resetPasswordEmail}
-                />
+                 <InputField inputConfig={inputFieldConfigs.resetPasswordEmail} />
                 <input type="hidden" name="email" id="email" value={email} />
                 <span className="form-input-icon">
                   <i className="fa-solid fa-user" style={{ color: "gray" }}></i>
                 </span>
               </div>
               <div className="mb-3 position-relative">
-                <InputField
-                  value={values.NewPassword}
-                  {...fieldPresets.newPassword}
-                />
+                  <InputField inputConfig={inputFieldConfigs.newPassword} />
                 <span className="form-input-icon">
                   <i
                     className="fas fa-eye eye-icon"
@@ -68,26 +62,11 @@ const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
                 </span>
               </div>
               <div className="mb-3 position-relative">
-                <InputField
-                  value={values.ConfirmPassword}
-                  {...fieldPresets.confirmPassword}
-                />
-                {/* <span className="form-input-icon">
-                  <i
-                    className="fas fa-eye eye-icon"
-                    style={{ color: "gray", cursor: "pointer" }}
-                    onClick={(e) =>
-                      togglePasswordVisibility(
-                        "ConfirmPassword",
-                        e.currentTarget as HTMLElement
-                      )
-                    }
-                  ></i>
-                </span> */}
+                 <InputField inputConfig={inputFieldConfigs.confirmPassword} />
               </div>
               {error && <div className="text-danger fs-6 mb-3">{error}</div>}
               <div className="my-3">
-                <Button className="w-full submit-btn" type="submit">
+                <Button buttonConfig= {buttonConfigs.resetPasswordBtn}>
                   {loading || isSubmitting ? "Resetting..." : "Reset Password"}
                 </Button>
               </div>

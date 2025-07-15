@@ -1,29 +1,40 @@
-import React from "react";
-import { Button as MUIButton, type ButtonProps as MUIButtonProps } from "@mui/material";
+import React, { type ReactNode } from "react";
+import {
+  Button as MUIButton,
+  type ButtonProps as MUIButtonProps,
+} from "@mui/material";
+import { Link } from "react-router";
 
 interface CustomButtonProps extends MUIButtonProps {
-  children: React.ReactNode;
+  children?: ReactNode;
   className?: string;
   style?: React.CSSProperties;
+  to?:string;
 }
 
-const Button: React.FC<CustomButtonProps> = ({
+const Button: React.FC<{ buttonConfig: CustomButtonProps, children: React.ReactNode }> = ({
+  buttonConfig,
   children,
-  onClick,
-  type = "button",
-  className,
-  style,
-  ...rest
 }) => {
+  const {
+    onClick,
+    type = "button",
+    className,
+    style,
+    to,
+    ...props
+  } = buttonConfig;
   return (
     <MUIButton
-      variant="contained" 
+      variant="contained"
+      component={to ? Link : "button"}
       type={type}
+      to={to}
       onClick={onClick}
       className={className}
       style={style}
       fullWidth={true}
-      {...rest} 
+      {...props}
     >
       {children}
     </MUIButton>

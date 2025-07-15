@@ -1,11 +1,10 @@
 import React from "react";
 import { Formik, Form } from "formik";
-import { Link } from "react-router-dom";
 import InputField from "../../../common/components/TextBox";
 import Button from "../../../common/components/Button";
 import "../auth.css";
 import { validationSchema } from "../schema/forgotPasswordSchema";
-import { fieldPresets } from "../../common/types/formTypes";
+import { buttonConfigs, inputFieldConfigs } from "../../common/types/formControllTypes";
 
 const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({
   loading,
@@ -24,25 +23,23 @@ const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
-        {({ isSubmitting, values }) => (
+        {({ isSubmitting }) => (
           <Form id="forgotPasswordForm">
             <div className="form-input-div mt-3 relative">
-              <InputField value={values.email} {...fieldPresets.email} />
+              <InputField inputConfig={inputFieldConfigs.forgotPasswordEmail} />
             </div>
             {error && <div className="text-danger fs-6 mx-2 mb-3">{error}</div>}
 
             <div className="my-3">
-              <Button type="submit" className="submit-btn">
+              <Button buttonConfig={buttonConfigs.forgotPasswordBtn}>
                 {loading || isSubmitting ? "Submitting..." : "Reset Password"}
               </Button>
             </div>
             <div className="my-3">
-              <Link
-                to="/login"
-                className="w-full text-white rounded py-1 bg-gray-500 font-semibold hover:bg-gray-700 transition block text-center"
+              <Button buttonConfig={buttonConfigs.backToLoginBtn}
               >
                 Back to Login
-              </Link>
+              </Button>
             </div>
           </Form>
         )}

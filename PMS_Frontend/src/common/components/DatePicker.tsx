@@ -3,6 +3,7 @@ import { useField } from "formik";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker"; 
 import ReactDatePickerProps from "react-datepicker";
+import type { ExtraProps } from "../types/types";
 
 type DatePickerFieldProps = ExtraProps &
   Omit<ReactDatePickerProps, "value" | "onChange" | "name"> & {

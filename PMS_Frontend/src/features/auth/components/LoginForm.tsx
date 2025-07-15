@@ -6,7 +6,7 @@ import Button from "../../../common/components/Button";
 import { loginValidationSchema } from "../schema/loginSechema";
 import { PUBLIC_ROUTES } from "../../../consts/routes";
 import InputField from "../../../common/components/TextBox";
-import { fieldPresets } from "../../common/types/formTypes";
+import { buttonConfigs, inputFieldConfigs } from "../../common/types/formControllTypes";
 
 const LoginForm: React.FC<LoginFormProps> = ({ loading, onSubmit }) => {
   return (
@@ -22,11 +22,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ loading, onSubmit }) => {
           </h2>
 
           <div className="mb-4">
-            <InputField value={values.email} {...fieldPresets.email} />
+            <InputField inputConfig={inputFieldConfigs.loginEmail} />
           </div>
 
           <div className="mb-4">
-            <InputField value={values.password} {...fieldPresets.password} />
+            <InputField inputConfig={inputFieldConfigs.loginPassword} />
           </div>
 
           <div className="flex items-center justify-between mb-6">
@@ -43,11 +43,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ loading, onSubmit }) => {
               Forgot password?
             </a>
           </div>
-          <div>
-            <Button type="submit" className="submit-btn">
-              {loading || isSubmitting ? "Logging in..." : "Login"}
-            </Button>
-          </div>
+          <Button buttonConfig={buttonConfigs.loginBtn}>
+            {loading || isSubmitting ? "Logging in..." : "Login"}
+          </Button>
         </Form>
       )}
     </Formik>

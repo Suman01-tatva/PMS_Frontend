@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+import type { ToggleProps } from "../types/types";
 
 export default function SlideToggle({
   label,

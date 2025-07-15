@@ -130,11 +130,12 @@ const Navbar: React.FC = () => {
         onClose={() => setModalOpen(false)}
         onConfirm={handleConfirmLogout}
         title="Logout Confirmation"
-        message="Are you sure you want to log out?"
         confirmText="Yes"
         cancelText="No"
         size="md"
-      />
+      >
+        Are you sure you want to log out?
+      </ConfirmationModal>
     </>
   );
 };

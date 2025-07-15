@@ -1,23 +1,23 @@
 /* Cancelbutton */
 .cancel-btn {
-  background-color: var(--colorLight);
-  color: var(--colorDarkGray);
-  border: 1px solid var(--colorDarkGray);
+  background-color: var(--colorLight)!important;
+  color: var(--colorDarkGray)!important;
+  border: 1px solid var(--colorDarkGray)!important;
 }
 
 .cancel-btn:hover {
-  background-color: var(--colorDarkGray);
-  color: var(--colorLight);
-  border: 1px solid var(--colorDarkGray);
+  background-color: var(--colorDarkGray)!important;
+  color: var(--colorLight)!important;
+  border: 1px solid var(--colorDarkGray)!important;
 }
 
 /* Submit btn */
 .submit-btn {
-    background-color: var(--colorDarkGray);
-    color: var(--colorLight);
-  }
-  
-  .submit-btn:hover {
-    background-color: var(--colorDark);
-    color: var(--colorLight);
-  }
+  background-color: var(--colorDarkGray)!important;
+  color: var(--colorLight)!important;
+}
+
+.submit-btn:hover {
+  background-color: var(--colorDark)!important;
+  color: var(--colorLight)!important;
+}
