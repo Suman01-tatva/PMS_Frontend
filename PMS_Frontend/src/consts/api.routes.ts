@@ -33,4 +33,6 @@ export const PRIVATE_ROUTES = {
   SPRINT: "/sprint/:id",
   TASK: "/task/:id",
   PROFILE: "/user/profile/:id",
+  UPDATE_PROFILE: "/user/update-profile",
+  CHANGE_PASSWORD: "user/change-password"
 };

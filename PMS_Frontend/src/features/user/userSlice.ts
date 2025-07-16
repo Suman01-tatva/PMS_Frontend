@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { hideLoader, showLoader } from "../../common/loader/loaderSlice";
-import { getProfileDetails } from "./userApi";
+import { getProfileDetails, updateProfileDetails, changePassword } from "./userApi";
 import toastService from "../../utils/toastr";
 
 export const profileDetailsThunk = createAsyncThunk(
@@ -10,6 +10,50 @@ export const profileDetailsThunk = createAsyncThunk(
       dispatch(showLoader());
       const response = await getProfileDetails(payload.id);
       return response.data.data!;
+    } catch (err) {
+      const errorMessage = err;
+      toastService.error(errorMessage);
+      return rejectWithValue(errorMessage);
+    } finally {
+      dispatch(hideLoader());
+    }
+  }
+);
+
+export const updateProfileThunk = createAsyncThunk<
+ProfileFormValues,
+  ProfileFormValues,
+  { rejectValue: string }
+>(
+  "auth/login",
+  async (payload: ProfileFormValues, { dispatch, rejectWithValue }) => {
+    try {
+      dispatch(showLoader());
+      const response = await updateProfileDetails(payload);
+      toastService.success(response.data.message || "Updated Successfully");
+      return response.data.data;
+    } catch (err) {
+      const errorMessage = err;
+      toastService.error(errorMessage);
+      return rejectWithValue(errorMessage);
+    } finally {
+      dispatch(hideLoader());
+    }
+  }
+);
+
+export const changePasswordThunk = createAsyncThunk<
+  string,
+  ChangePasswordFormValues,
+  { rejectValue: string }
+>(
+  "auth/login",
+  async (payload: ChangePasswordFormValues, { dispatch, rejectWithValue }) => {
+    try {
+      dispatch(showLoader());
+      const response = await changePassword(payload);
+      toastService.success(response.data.message || "Updated Successfully");
+      return response.data.data;
     } catch (err) {
       const errorMessage = err;
       toastService.error(errorMessage);

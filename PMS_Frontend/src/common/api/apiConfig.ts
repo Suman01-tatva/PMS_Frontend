@@ -41,6 +41,7 @@ import { getAccessToken, removeAccessToken } from "../../utils/authUtils";
 import toastService from "../../utils/toastr";
 import { ERRORS } from "../../consts/general";
 import { PUBLIC_ROUTES } from "../../consts/routes";
+import type { ErrorResponseData } from "../types/formControllTypes";
 const BASE_URL = import.meta.env.API_URL || "http://localhost:5254/api";
 
 const apiClient = axios.create({

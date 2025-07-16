@@ -1,12 +1,12 @@
 import React from "react";
 import { Formik, Form } from "formik";
-import Checkbox from "../../../common/components/Checkbox";
+import Checkbox from "../../../common/components/formControlls/checkbox/Checkbox";
 import "../../../common/style/formControl.css";
-import Button from "../../../common/components/Button";
+import Button from "../../../common/components/formControlls/button/Button";
 import { loginValidationSchema } from "../schema/loginSechema";
 import { PUBLIC_ROUTES } from "../../../consts/routes";
-import InputField from "../../../common/components/TextBox";
-import { buttonConfigs, inputFieldConfigs } from "../../common/types/formControllTypes";
+import InputField from "../../../common/components/formControlls/textBox/TextBox";
+import { buttonConfigs, inputFieldConfigs } from "../const/loginConst";
 
 const LoginForm: React.FC<LoginFormProps> = ({ loading, onSubmit }) => {
   return (

@@ -13,7 +13,7 @@ const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
   id,
   className,
   labelClassName,
-  ...rest
+  ...props
 }) => {
   return (
     <label
@@ -23,7 +23,7 @@ const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
       <MuiCheckbox
         id={id}
         className={className}
-        {...rest}
+        {...props}
       />
       <span className="mx-2">{label}</span>
     </label>

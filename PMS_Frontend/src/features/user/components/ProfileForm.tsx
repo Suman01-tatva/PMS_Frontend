@@ -1,8 +1,9 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import { profileValidationSchema } from "../schema";
-import InputField from "../../../common/components/TextBox";
-import Button from "../../../common/components/Button";
+import InputField from "../../../common/components/formControlls/textBox/TextBox";
+import Button from "../../../common/components/formControlls/button/Button";
+import { profileFormInputConfig } from "../const/authConst";
 
 const ProfileForm: React.FC<ProfileFormProps> = ({ initialValues, onSubmit }) => {
   return (
@@ -18,52 +19,32 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ initialValues, onSubmit }) =>
           <div className="col-md">
             <div className="mb-3 form-floating">
               <InputField
-                name="name"
-                type="text"
-                className="form-control"
-                label="Name"
-                id="name"
+                inputConfig={profileFormInputConfig.profileName}
               />
             </div>
 
             <div className="mb-3 form-floating">
               <InputField
-                name="email"
-                type="email"
-                className="form-control"
-                label="Email"
-                id="email"
+                inputConfig={profileFormInputConfig.profileEmail}
               />
             </div>
 
             <div className="mb-3 form-floating">
               <InputField
-                name="role"
-                type="text"
-                className="form-control"
-                label="Role"
-                id="role"
-                readOnly
+                inputConfig={profileFormInputConfig.profileRole}
               />
             </div>
 
             <div className="mb-3 form-floating">
               <InputField
-                name="joinedDate"
-                type="text"
-                className="form-control"
-                label="Joined On"
-                id="joinedOn"
-                readOnly
+                inputConfig={profileFormInputConfig.joiningDate}
               />
             </div>
           </div>
 
           <div className="text-end mt-4 col-12">
             <Button
-              type="submit"
-              className="submit-btn w-auto"
-              disabled={isSubmitting}
+              buttonConfig={profileFormInputConfig.updateProfileButton}
             >
               {isSubmitting ? "Saving..." : "Save Changes"}
             </Button>

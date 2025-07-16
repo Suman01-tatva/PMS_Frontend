@@ -1,13 +1,6 @@
 import React from "react";
-
-interface SearchBarProps {
-  value: string;
-  onChange: (value: string) => void;
-  placeholder?: string;
-  name?: string;
-  id?: string;
-  className?: string;
-}
+import type { SearchBarProps } from "../../../types/formControllTypes";
+import InputField from "../textBox/TextBox";
 
 const SearchBar: React.FC<SearchBarProps> = ({
   value,
@@ -17,18 +10,23 @@ const SearchBar: React.FC<SearchBarProps> = ({
   id = "searchBar",
   className = "",
 }) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(event.target.value);
+  };
   return (
     <div className={`w-full sm:w-1/2 px-2 ${className}`}>
       <div className="relative">
-        <input
-          type="text"
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          placeholder={placeholder}
-          name={name}
-          id={id}
-          className="w-full p-2 pl-4 pr-10 border border-gray-300 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 transition"
-          required
+        <InputField
+          inputConfig={{
+            type: "text",
+            value: value,
+            onChange: handleChange,
+            placeholder: placeholder,
+            name: name,
+            id: id,
+            className:
+              "w-full p-2 pl-4 pr-10 border border-gray-300 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 transition",
+          }}
         />
         <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">
           <svg

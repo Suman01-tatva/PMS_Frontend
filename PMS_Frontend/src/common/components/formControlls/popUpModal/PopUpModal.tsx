@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
-import type { PopUpModalProps } from "../types/types";
+import type { PopUpModalProps } from "../../../types/formControllTypes";
 
 const PopUpModal: React.FC<PopUpModalProps> = ({
   isOpen,

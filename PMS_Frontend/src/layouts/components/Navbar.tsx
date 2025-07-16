@@ -7,7 +7,7 @@ import { FaBars, FaBell } from "react-icons/fa";
 import DesktopNav from "./NavbarTabs";
 import NotificationDropdown from "./NotificationDropdown";
 import MobileDrawer from "./Sidebar";
-import ConfirmationModal from "../../common/components/PopUpModal";
+import ConfirmationModal from "../../common/components/formControlls/popUpModal/PopUpModal";
 
 const Navbar: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -61,11 +61,11 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      <nav className="bg-white shadow-sm sticky top-0 z-50">
+      <nav className="bg-dark shadow-sm sticky top-0 z-50">
         <div className="container-fluid mx-auto px-4 py-3 flex justify-between items-center">
           <Link
             to="/"
-            className="text-xl font-bold underline-none text-gray-800"
+            className="text-xl font-bold underline-none text-gray-200"
           >
             PMS
           </Link>

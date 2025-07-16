@@ -1,7 +1,7 @@
 import type {
   CustomButtonProps,
   InputFieldProps,
-} from "../../../common/types/types";
+} from "../../../common/types/formControllTypes";
 
 const emailInput: InputFieldProps = {
   id: "email",
@@ -69,21 +69,23 @@ const loginBtnConfig: Omit<CustomButtonProps, "children"> = {
   className: "submit-btn",
 };
 
-const resetPasswordBtnConfig: Omit<CustomButtonProps, "children"> = {
-  type: "submit",
-  className: "w-full submit-btn",
-};
+const resetPasswordBtnConfig: Omit<CustomButtonProps, "children"> = loginBtnConfig;
 
-const forgotPasswordBtnConfig: Omit<CustomButtonProps, "children"> = {
-  type: "submit",
-  className: "submit-btn",
-};
+const forgotPasswordBtnConfig: Omit<CustomButtonProps, "children"> = loginBtnConfig;
 
 const backToLoginBtnConfig: Omit<CustomButtonProps, "children"> = {
   to:"/login",
   type: "button",
   className: "submit-btn",
 }
+
+const loginDate: InputFieldProps = {
+  id: "loginDate",
+  name: "loginDate",
+  type: "date",
+  label: "Login Date",
+}
+
 export const inputFieldConfigs = {
   loginEmail: emailInput,
   loginPassword: passwordInput,
@@ -95,6 +97,7 @@ export const inputFieldConfigs = {
   resetPasswordEmail: resetPasswordEmailInput,
   newPassword: newPasswordInput,
   confirmPassword: confirmPasswordInput,
+  loginDate: loginDate,
 };
 
 export const buttonConfigs = {

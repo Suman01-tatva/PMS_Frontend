@@ -13,8 +13,8 @@ export const ERRORS = {
 };
 
 export const navItemClass = (path: string, currentPath: string) =>
-  `px-3 py-2 rounded hover:bg-gray-200 transition-colors ${
-    currentPath === path ? "font-semibold text-blue-600 underline-none bg-gray-300" : ""
+  `px-3 py-2 rounded hover:bg-gray-500 transition-colors font-semibold ${
+    currentPath === path ? "font-semibold text-white underline-none bg-gray-500" : ""
   }`;
 
 export const inputFieldTypes = {

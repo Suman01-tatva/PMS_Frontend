@@ -1,8 +1,9 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
-import InputField from "../../../common/components/TextBox";
-import Button from "../../../common/components/Button";
+import InputField from "../../../common/components/formControlls/textBox/TextBox";
+import Button from "../../../common/components/formControlls/button/Button";
 import { changePasswordSchema } from "../schema";
+import { profileFormInputConfig } from "../const/authConst";
 
 const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({
   initialValues = {
@@ -29,36 +30,25 @@ const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({
 
             <div className="form-input-container mt-3 col-md-4 position-relative">
               <InputField
-                type="password"
-                name="currentPassword"
-                label="Current Password*"
-                id="currentPassword"
+                inputConfig={profileFormInputConfig.currentPasswordField}
               />
             </div>
 
             <div className="form-input-container mt-3 col-md-4 position-relative">
               <InputField
-                type="password"
-                name="newPassword"
-                label="New Password*"
-                id="newPassword"
+                inputConfig={profileFormInputConfig.newPasswordField}
               />
             </div>
 
             <div className="form-input-container mt-3 col-md-4 position-relative">
               <InputField
-                type="password"
-                name="confirmPassword"
-                label="Confirm Password*"
-                id="confirmPassword"
+                inputConfig={profileFormInputConfig.confirmPasswordField}
               />
             </div>
 
             <div className="text-end mt-4 col-12">
               <Button
-                type="submit"
-                className="w-auto submit-btn"
-                disabled={isSubmitting}
+                buttonConfig={profileFormInputConfig.changePasswordButton}
               >
                 {isSubmitting ? "Updating..." : "Update Password"}
               </Button>

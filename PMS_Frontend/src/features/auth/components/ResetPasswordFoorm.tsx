@@ -1,9 +1,9 @@
 import React from "react";
 import { Formik, Form } from "formik";
-import InputField from "../../../common/components/TextBox";
-import Button from "../../../common/components/Button";
+import InputField from "../../../common/components/formControlls/textBox/TextBox";
+import Button from "../../../common/components/formControlls/button/Button";
 import { resetPasswordValidationSchema } from "../schema/resetPasswordSchema";
-import { buttonConfigs, inputFieldConfigs } from "../../common/types/formControllTypes";
+import { buttonConfigs, inputFieldConfigs } from "../const/loginConst";
 
 const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
   loading,

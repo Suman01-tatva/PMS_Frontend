@@ -62,6 +62,7 @@ export interface MultiSelectDropdownProps {
   name: string;
   label: string;
   options: Option[];
+  className?: string;
 }
 
 export interface InputFieldProps extends CommonProps{
@@ -69,6 +70,7 @@ export interface InputFieldProps extends CommonProps{
   autoComplete?: string;
   disabled?: boolean;
   readonly?: boolean;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export interface CommonProps {
@@ -97,4 +99,26 @@ export interface CustomButtonProps extends ButtonProps {
   className?: string;
   style?: React.CSSProperties;
   to?: string;  
+}
+
+export interface Option {
+  value: string;
+  label: string;
+}
+
+export interface DropdownFieldProps {
+  name: string;
+  label: string;
+  options: Option[];
+  fullWidth?: boolean;
+  defaultValue?: string | number;
+}
+
+export interface SearchBarProps {
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+  name?: string;
+  id?: string;
+  className?: string;
 }

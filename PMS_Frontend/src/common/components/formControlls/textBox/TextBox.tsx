@@ -1,11 +1,18 @@
 import React from "react";
 import { TextField } from "@mui/material";
-import { useFieldError } from "../../hooks/useFieldError";
-import type { InputFieldProps } from "../types/types";
+import { useFieldError } from "../../../../hooks/useFieldError";
+import type { InputFieldProps } from "../../../types/formControllTypes";
 
 const InputField: React.FC<{ inputConfig: InputFieldProps }> = ({ inputConfig }) => {
-  const { type = "text", disabled = false, readonly = false, ...props } = inputConfig;
+  const { type = "text", disabled = false, readonly = false, onChange , ...props } = inputConfig;
   const { field, showError, helperText } = useFieldError(props);
+
+  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (onChange) {
+      onChange(event);
+    }
+  };
+  
   return (
     <div>
       <TextField
@@ -19,6 +26,7 @@ const InputField: React.FC<{ inputConfig: InputFieldProps }> = ({ inputConfig })
         variant="outlined"
         disabled={disabled}
         aria-readonly={readonly}
+        onChange={handleOnChange}
         error={showError}
         helperText={helperText}
         {...field}
