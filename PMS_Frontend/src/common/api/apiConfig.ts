@@ -1,47 +1,13 @@
-// import axios, { type AxiosResponse } from "axios";
-// import { getAccessToken, removeAccessToken } from "../../utils/authUtils";
-// import toastService from "../../utils/toastr";
-
-// export default async function API<TRequest, TResponse>(
-//   method: string,
-//   endPoint: string,
-//   data: TRequest | null = null
-// ): Promise<AxiosResponse<TResponse>> {
-//   console.log(data, endPoint, method);
-//   try {
-//     const response = await axios({
-//       method: method,
-//       url: endPoint,
-//       headers: {
-//         Authorization: `Bearer ${getAccessToken()}`
-//       },
-//       data: data,
-//       params: data && data ? data : null,
-//     });
-//     return response;
-//   } catch (error) {
-//     if (error.response?.status === 401) {
-//       toastService.error("Session expired! Please, Login again.");
-//       removeAccessToken();
-//       window.location.href = `/login`;
-//       throw new Error("Session expired!");
-//     } else {
-//       throw error.response;
-//     }
-//   }
-// }
-
-// export { API };
 import axios, {
   type AxiosResponse,
   type InternalAxiosRequestConfig,
   AxiosError,
 } from "axios";
 import { getAccessToken, removeAccessToken } from "../../utils/authUtils";
-import toastService from "../../utils/toastr";
+import toastService from "../utills/toastr";
 import { ERRORS } from "../../consts/general";
 import { PUBLIC_ROUTES } from "../../consts/routes";
-import type { ErrorResponseData } from "../types/formControllTypes";
+import type { ErrorResponseData } from "../types/commonTypes";
 const BASE_URL = import.meta.env.API_URL || "http://localhost:5254/api";
 
 const apiClient = axios.create({

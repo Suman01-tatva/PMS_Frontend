@@ -1,15 +1,18 @@
 import React from "react";
-import type { SearchBarProps } from "../../../types/formControllTypes";
 import InputField from "../textBox/TextBox";
+import type { SearchBarProps } from "./types";
 
-const SearchBar: React.FC<SearchBarProps> = ({
-  value,
-  onChange,
-  placeholder = "Search...",
-  name = "search",
-  id = "searchBar",
-  className = "",
+const SearchBar: React.FC<{ searchBarConfig: SearchBarProps }> = ({
+  searchBarConfig,
 }) => {
+  const {
+    value,
+    onChange,
+    placeholder = "Search...",
+    name = "search",
+    id = "searchBar",
+    className = "",
+  } = searchBarConfig;
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange(event.target.value);
   };

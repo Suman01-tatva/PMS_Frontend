@@ -7,7 +7,7 @@ import {
 } from "../authSlice";
 import ResetPasswordForm from "../components/ResetPasswordFoorm";
 import { toast } from "react-toastify";
-import toastService from "../../../utils/toastr";
+import toastService from "../../../common/utills/toastr";
 
 const ResetPasswordPage: React.FC = () => {
   const dispatch = useAppDispatch();

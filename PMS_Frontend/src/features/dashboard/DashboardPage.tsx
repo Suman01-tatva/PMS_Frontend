@@ -1,6 +1,9 @@
+import CommonForm from "./components/CommonForm";
 
 const DashboardPage: React.FC = () => {
-  return <div>Dashboard</div>;
+  return <div>
+    <CommonForm />
+  </div>;
 };
 
 export default DashboardPage;

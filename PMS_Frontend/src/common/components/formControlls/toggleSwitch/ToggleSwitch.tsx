@@ -1,16 +1,10 @@
 import React from "react";
 import { Switch } from "@mui/material";
 import { useField } from "formik";
-import { type CommonProps } from "../../../types/formControllTypes";
-
-export interface SwitchProps extends CommonProps {
-  disabled?: boolean;
-  className?: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
+import type { ToggleSwitchProps } from "./types";
 
 const ToggleSwitch: React.FC<{
-  switchConfig: SwitchProps;
+  switchConfig: ToggleSwitchProps;
 }> = ({ switchConfig }) => {
   const { ...props } = switchConfig;
 

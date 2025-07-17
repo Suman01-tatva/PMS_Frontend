@@ -9,6 +9,16 @@ import InputField from "../../../common/components/formControlls/textBox/TextBox
 import { buttonConfigs, inputFieldConfigs } from "../const/loginConst";
 
 const LoginForm: React.FC<LoginFormProps> = ({ loading, onSubmit }) => {
+  // test(){}
+  // passwordConfig = GetTextboxCongig('password', test)
+
+  // GetTextboxConfig(label, onChnage){
+  //   return {
+  //     lable: label,
+  //     Onchange:
+  //   }
+  // }
+
   return (
     <Formik
       initialValues={{ email: "", password: "", rememberMe: false }}
@@ -31,10 +41,12 @@ const LoginForm: React.FC<LoginFormProps> = ({ loading, onSubmit }) => {
 
           <div className="flex items-center justify-between mb-6">
             <Checkbox
-              name="rememberMe"
-              label="Remember Me"
-              checked={values.rememberMe}
-              onChange={(e) => setFieldValue("rememberMe", e.target.checked)}
+              checkBoxConfig={{
+                name: "rememberMe",
+                label: "Remember Me",
+                checked: values.rememberMe,
+                onChange: (e) => setFieldValue("rememberMe", e.target.checked),
+              }}
             />
             <a
               href={PUBLIC_ROUTES.FORGOTPASSWORD}

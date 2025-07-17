@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { hideLoader, showLoader } from "../../common/loader/loaderSlice";
+import { hideLoader, showLoader } from "../../common/components/loader/loaderSlice";
 import { getProfileDetails, updateProfileDetails, changePassword } from "./userApi";
-import toastService from "../../utils/toastr";
+import toastService from "../../common/utills/toastr";
 
 export const profileDetailsThunk = createAsyncThunk(
   "user/profile/:id",
@@ -25,7 +25,7 @@ ProfileFormValues,
   ProfileFormValues,
   { rejectValue: string }
 >(
-  "auth/login",
+  "auth/update-profile",
   async (payload: ProfileFormValues, { dispatch, rejectWithValue }) => {
     try {
       dispatch(showLoader());
@@ -47,7 +47,7 @@ export const changePasswordThunk = createAsyncThunk<
   ChangePasswordFormValues,
   { rejectValue: string }
 >(
-  "auth/login",
+  "auth/change-password",
   async (payload: ChangePasswordFormValues, { dispatch, rejectWithValue }) => {
     try {
       dispatch(showLoader());

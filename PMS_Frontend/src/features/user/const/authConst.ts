@@ -1,7 +1,7 @@
 import {
   type CustomButtonProps,
   type InputFieldProps,
-} from "../../../common/types/formControllTypes";
+} from "../../../common/types/commonTypes";
 
 const profileName: InputFieldProps = {
   id: "name",

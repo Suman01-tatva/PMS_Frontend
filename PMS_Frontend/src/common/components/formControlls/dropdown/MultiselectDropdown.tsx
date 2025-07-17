@@ -8,8 +8,8 @@ import {
   type SelectChangeEvent,
   FormHelperText,
 } from "@mui/material";
-import type { MultiSelectDropdownProps } from "../../../types/formControllTypes";
 import { useFieldError } from "../../../../hooks/useFieldError";
+import type { MultiSelectDropdownProps } from "./types";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;

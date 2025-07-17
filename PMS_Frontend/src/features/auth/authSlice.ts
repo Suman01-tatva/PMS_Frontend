@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { hideLoader, showLoader } from "../../common/loader/loaderSlice";
+import { hideLoader, showLoader } from "../../common/components/loader/loaderSlice";
 import { loginUser, forgotPassword, resetPassword, submitResetPassword } from "./authApi";
 import { getAccessToken, storeAccessToken, storeIsAuthenticated, storeUserData } from "../../utils/authUtils";
-import toastService from "../../utils/toastr";
+import toastService from "../../common/utills/toastr";
 
 const initialState: AuthState = {
   isAuthenticated: getAccessToken() ? true : false,

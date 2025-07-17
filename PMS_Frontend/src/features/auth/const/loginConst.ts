@@ -1,7 +1,7 @@
 import type {
   CustomButtonProps,
   InputFieldProps,
-} from "../../../common/types/formControllTypes";
+} from "../../../common/types/commonTypes";
 
 const emailInput: InputFieldProps = {
   id: "email",

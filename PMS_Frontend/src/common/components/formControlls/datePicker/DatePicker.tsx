@@ -1,23 +1,16 @@
 import React from "react";
 import { useFieldError } from "../../../../hooks/useFieldError";
-import { FormHelperText, FormControl, FormLabel } from "@mui/material";
-import type { ExtraProps } from "../../../types/formControllTypes";
+import { FormControl, FormLabel } from "@mui/material";
 import type { Dayjs } from "dayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import type { DatePickerFieldProps } from "./types";
 
-type DatePickerFieldProps = ExtraProps & {
-  name: string;
-  label?: string;
-  fullWidth?: boolean;
-  disabled?: boolean;
-};
-
-const DatePickerField: React.FC<{inputConfig :DatePickerFieldProps}> = ({
-  inputConfig
+const DatePickerField: React.FC<{ dateConfig: DatePickerFieldProps }> = ({
+  dateConfig,
 }) => {
-  const { name, label, fullWidth = true, disabled = false } = inputConfig;
+  const { name, label, fullWidth = true, disabled = false } = dateConfig;
   const { field, showError, helperText, setValue, setTouched } =
     useFieldError<Dayjs | null>({ name });
 
@@ -40,7 +33,6 @@ const DatePickerField: React.FC<{inputConfig :DatePickerFieldProps}> = ({
           }}
           {...field}
         />
-        {showError && <FormHelperText>{helperText}</FormHelperText>}
       </FormControl>
     </LocalizationProvider>
   );

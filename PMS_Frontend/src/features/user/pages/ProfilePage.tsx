@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import ChangePasswordForm from "../components/ChangePasswordForm";
 import ProfileForm from "../components/ProfileForm";
 import { useAppDispatch, useAppSelector } from "../../../app/hook";
-import { profileDetailsThunk, updateProfileThunk } from "../userSlice";
+import {
+  changePasswordThunk,
+  profileDetailsThunk,
+  updateProfileThunk,
+} from "../userSlice";
 import { PRIVATE_ROUTES } from "../../../consts/routes";
 import { useNavigate } from "react-router";
 
@@ -29,46 +33,49 @@ const ProfilePage = () => {
   const handleUpdateProfile = async (values: ProfileFormValues) => {
     try {
       const response = await dispatch(updateProfileThunk(values));
-      if(updateProfileThunk.fulfilled.match(response))
-        setInitialValues(response.payload);
-      // window.location.reload();
-      console.log(response)
+      if (updateProfileThunk.fulfilled.match(response)) getProfileDetails();
     } catch (err) {
       console.log(err);
     }
   };
 
   const handleChangePassword = async (
-    values: typeof changePasswordInitialValues
+    values: typeof changePasswordInitialValues,
+    // formikHelpers: { resetForm: () => void; setSubmitting: (isSubmitting: boolean) => void }
   ) => {
-    console.log("Change password submitted", values);
+    try {
+      const response = await dispatch(changePasswordThunk(values));
+      if (changePasswordThunk.fulfilled.match(response)) {
+        getProfileDetails();
+        // formikHelpers.resetForm();
+      }
+    } catch (err) {
+      console.log(err);
+      // formikHelpers.setSubmitting(false);
+    }
+  };
+
+  const getProfileDetails = async () => {
+    try {
+      const result = await dispatch(
+        profileDetailsThunk({ id: user.id } as GetProfileDetailsRequest)
+      ).unwrap();
+
+      setInitialValues(result as ProfileFormValues);
+    } catch (error) {
+      console.log(error);
+      navigate(PRIVATE_ROUTES.DASHBOARD);
+    }
   };
 
   useEffect(() => {
-    let isMounted = true;
-    const getProfileDetails = async () => {
-      try {
-        const result = await dispatch(
-          profileDetailsThunk({ id: user.id } as GetProfileDetailsRequest)
-        );
-
-        if (isMounted) setInitialValues(result.payload as ProfileFormValues);
-      } catch (error) {
-        console.log(error);
-        if (isMounted) navigate(PRIVATE_ROUTES.DASHBOARD);
-      }
-    };
-
+    console.log(user.id);
     if (user?.id) {
       getProfileDetails();
     } else {
       navigate(PRIVATE_ROUTES.DASHBOARD);
     }
-
-    return () => {
-      isMounted = false;
-    };
-  }, [user, navigate, dispatch]);
+  }, [user, navigate]);
 
   if (!initialValues) {
     return <div>Loading profile...</div>;
@@ -78,7 +85,10 @@ const ProfilePage = () => {
     <div className="container mt-5">
       <div className="card shadow-lg border-0 rounded-4 p-4">
         <h3 className="mb-4">My Profile</h3>
-        <ProfileForm initialValues={initialValues} onSubmit={handleUpdateProfile} />
+        <ProfileForm
+          initialValues={initialValues}
+          onSubmit={handleUpdateProfile}
+        />
         <ChangePasswordForm
           initialValues={changePasswordInitialValues}
           onSubmit={handleChangePassword}

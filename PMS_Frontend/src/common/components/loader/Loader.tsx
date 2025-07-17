@@ -1,4 +1,4 @@
-import { useAppSelector } from "../../app/hook";
+import { useAppSelector } from "../../../app/hook";
 import { PulseLoader } from "react-spinners";
 
 const Loader: React.FC = () => {
