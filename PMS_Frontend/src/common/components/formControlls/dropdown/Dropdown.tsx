@@ -10,14 +10,16 @@ import {
 import { useFieldError } from "../../../../hooks/useFieldError";
 import type { DropdownFieldProps } from "./types";
 
-const DropdownField: React.FC<DropdownFieldProps> = ({
-  name,
-  label,
-  options,
-  fullWidth = true,
-  defaultValue = "",
+const DropdownField: React.FC<{ dropDownConfig: DropdownFieldProps }> = ({
+  dropDownConfig,
 }) => {
-  const { field, showError, helperText, setValue } = useFieldError(name);
+  const {
+    fullWidth = true,
+    defaultValue = "",
+    ...props
+  } = dropDownConfig;
+
+  const { field, showError, helperText, setValue } = useFieldError({...props});
 
   const handleChange = (event: SelectChangeEvent<string | number>) => {
     setValue(event.target.value);
@@ -25,14 +27,12 @@ const DropdownField: React.FC<DropdownFieldProps> = ({
 
   return (
     <FormControl fullWidth={fullWidth} error={showError} margin="normal">
-      <div>
-        
-      </div>
-      <InputLabel id={`${name}-label`}>{label}</InputLabel>
+      <div></div>
+      <InputLabel id={`${props.name}-label`}>{props.label}</InputLabel>
       <Select
         labelId={`${name}-label`}
-        id={name}
-        label={label}
+        id={props.name}
+        label={props.label}
         value={field.value ?? defaultValue}
         onChange={handleChange}
         {...field}
@@ -42,7 +42,7 @@ const DropdownField: React.FC<DropdownFieldProps> = ({
             {defaultValue}
           </MenuItem>
         )}
-        {options.map((option) => (
+        {props.options.map((option) => (
           <MenuItem key={option.value} value={option.value}>
             {option.label}
           </MenuItem>

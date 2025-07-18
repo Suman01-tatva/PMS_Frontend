@@ -1,49 +1,92 @@
-import React from "react";
-import { Modal, Button } from "react-bootstrap";
+import React, { type ReactNode } from "react";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  IconButton,
+  Typography,
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import type { PopUpModalProps } from "./types";
+import type { ButtonProps } from "../button/types";
+import Button from "../button/Button";
 
-const PopUpModal: React.FC<PopUpModalProps> = ({
-  isOpen,
-  onClose,
-  onConfirm,
-  title,
-  confirmText = "Yes",
-  cancelText = "No",
-  size = "sm",
-  children = null,
+const PopUpModal: React.FC<{ popUpModalConfig: PopUpModalProps, children : ReactNode }> = ({
+  popUpModalConfig, children
 }) => {
+  const {
+    isOpen,
+    onClose,
+    onConfirm,
+    title,
+    confirmText = "Yes",
+    cancelText = "No",
+    size = "sm",
+    showAction = true,
+  } = popUpModalConfig;
+  
+  const confirmBtnConfig: Omit<ButtonProps, "children"> = {
+    type: "button",
+    className: "submit-btn",
+    variant: "contained",
+    onClick: onConfirm,
+    fullWidth: false,
+  };
+
+  const cancelBtnConfig: Omit<ButtonProps, "children"> = {
+    type: "button",
+    className: "cancel-btn",
+    variant: "contained",
+    onClick: onClose,
+    fullWidth: false,
+  };
+
+  const handleClose = (_e: unknown, reason?: string) => {
+    if(reason === "backdropClick" || reason === "escapeKeyDown")
+      return;
+    onClose();
+  }
   return (
-    <Modal
-      show={isOpen}
-      onHide={onClose}
-      centered
-      backdrop="static"
-      keyboard={false}
-      animation={true}
-      size={size}
+    <Dialog
+      open={isOpen}
+      onClose={handleClose}
+      fullWidth
+      maxWidth={size}
+      disableEscapeKeyDown
+      aria-labelledby="pop-up-modal-title"
     >
-      <Modal.Header className="border-0">
-        <Modal.Title as="h1" className="fs-5">
+      <DialogTitle sx={{ m: 0, p: 2 }}>
+        <Typography id="pop-up-modal-title" variant="h6">
           {title}
-        </Modal.Title>
-        <Button className="btn-close" onClick={onClose} aria-label="Close">
-          <i className="fa-solid fa-xmark text-gray-500 text-xl" />
-        </Button>
-      </Modal.Header>
-      <Modal.Body className="text-center p-1">
-        {typeof children === "string" ? <p>{children}</p> : children}
-      </Modal.Body>
-      {onConfirm && (
-        <Modal.Footer className="d-flex justify-content-center border-0">
-          <Button className="submit-btn" variant="primary" onClick={onConfirm}>
-            {confirmText}
-          </Button>
-          <Button className="cancel-btn" variant="secondary" onClick={onClose}>
-            {cancelText}
-          </Button>
-        </Modal.Footer>
+        </Typography>
+        <IconButton
+          aria-label="close"
+          onClick={onClose}
+          sx={{
+            position: "absolute",
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
+      <DialogContent dividers>
+        {typeof children === "string" ? (
+          <Typography>{children}</Typography>
+        ) : (
+          children
+        )}
+      </DialogContent>
+      {showAction && onConfirm && (
+        <DialogActions sx={{ justifyContent: "center", pb: 2 }}>
+          <Button buttonConfig={confirmBtnConfig}>{confirmText}</Button>
+          <Button buttonConfig={cancelBtnConfig}>{cancelText}</Button>
+        </DialogActions>
       )}
-    </Modal>
+    </Dialog>
   );
 };
 

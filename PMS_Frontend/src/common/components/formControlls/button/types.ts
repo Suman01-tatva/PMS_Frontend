@@ -1,7 +1,6 @@
 import { type ButtonProps as MUIButtonProps } from "@mui/material";
 
 export interface ButtonProps extends MUIButtonProps {
-  children?: React.ReactNode;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   type?: "button" | "submit" | "reset";
   className?: string;

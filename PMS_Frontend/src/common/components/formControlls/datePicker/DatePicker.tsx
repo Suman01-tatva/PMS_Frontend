@@ -10,18 +10,20 @@ import type { DatePickerFieldProps } from "./types";
 const DatePickerField: React.FC<{ dateConfig: DatePickerFieldProps }> = ({
   dateConfig,
 }) => {
-  const { name, label, fullWidth = true, disabled = false } = dateConfig;
-  const { field, showError, helperText, setValue, setTouched } =
-    useFieldError<Dayjs | null>({ name });
+  const { label, fullWidth = true, disabled = false, ...props } = dateConfig;
+  const { field, showError, helperText, setValue } =
+    useFieldError<Dayjs | null>({ ...props });
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <FormControl fullWidth={fullWidth} error={showError} margin="normal">
         {label && <FormLabel>{label}</FormLabel>}
         <DatePicker
+          {...field}
           value={field.value || null}
-          onChange={(date) => setValue(date)}
-          onBlur={() => setTouched(true)}
+          onChange={(date) => {
+            setValue(date);
+          }}
           disabled={disabled}
           slotProps={{
             textField: {
@@ -31,7 +33,7 @@ const DatePickerField: React.FC<{ dateConfig: DatePickerFieldProps }> = ({
               helperText,
             },
           }}
-          {...field}
+          format="DD/MM/YYYY"
         />
       </FormControl>
     </LocalizationProvider>

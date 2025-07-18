@@ -2,145 +2,93 @@ import { Form, Formik } from "formik";
 import { ValidationSchema } from "../schema/commonFormSchema";
 import InputField from "../../../common/components/formControlls/textBox/TextBox";
 import Button from "../../../common/components/formControlls/button/Button";
-import type { ButtonProps } from "@mui/material";
-import type { InputFieldProps } from "../../../common/components/formControlls/textBox/types";
 import CustomCheckbox from "../../../common/components/formControlls/checkbox/Checkbox";
 import ToggleSwitch from "../../../common/components/formControlls/toggleSwitch/ToggleSwitch";
 import DatePickerField from "../../../common/components/formControlls/datePicker/DatePicker";
-import SearchBar from "../../../common/components/formControlls/searchBar/SearchBar";
 import DropdownField from "../../../common/components/formControlls/dropdown/Dropdown";
 import MultiSelectDropdown from "../../../common/components/formControlls/dropdown/MultiselectDropdown";
+import type { CommonFormValues } from "../type";
+import type { CustomCheckboxProps } from "../../../common/components/formControlls/checkbox/types";
+import type { ToggleSwitchProps } from "../../../common/components/formControlls/toggleSwitch/types";
+import { GetButtonConfig, GetDatePickerConfig, GetDropdownConfig, GetInputFieldConfig, GetMultiSelectDropdownConfig } from "../../../common/utills/formControllConfig";
+import { cityOptions, tagOptions } from "../const/dashboardConst";
 
 const CommonForm = () => {
-  const onSubmit = (value) => {
-    console.log(value);
-  };
-  const emailInputConfig: InputFieldProps = {
-    id: "email",
-    name: "email",
-    type: "email",
-    label: "Email",
-  };
-
-  interface CustomButtonProps extends ButtonProps {
-    className?: string;
-    style?: React.CSSProperties;
-    to?: string;
-  }
-
-  const loginBtnConfig: Omit<CustomButtonProps, "children"> = {
-    type: "submit",
-    className: "submit-btn",
+  const initialValues: CommonFormValues = {
+    email: "",
+    password: "",
+    isActive: false,
+    isEnable: false,
+    date: null,
+    city: "",
+    tags: [],
   };
 
-  const passwordInputConfig: InputFieldProps = {
-    id: "password",
-    name: "password",
-    type: "password",
-    label: "Password",
-    autoComplete: "current-password",
+  const onSubmit = async (values: CommonFormValues): Promise<void> => {
+    console.log("Form Values: ", values);
   };
 
-  const cityOptions = [
-    { value: "nyc", label: "New York City" },
-    { value: "buf", label: "Buffalo" },
-    { value: "roc", label: "Rochester" },
-  ];
-
-  const tagOptions = [
-    { value: "react", label: "React" },
-    { value: "mui", label: "Material-UI" },
-    { value: "formik", label: "Formik" },
-    { value: "typescript", label: "TypeScript" },
-  ];
+  const emailConfig = GetInputFieldConfig('email', 'email', "Email");
+  const passwordConfig = GetInputFieldConfig('password', 'password', "password");
+  const loginBtnConfig = GetButtonConfig("submit","submit-btn");
+  const dateConfig = GetDatePickerConfig("date","date","Select Date",false);
+  const cityDropdownConfig = GetDropdownConfig("city","Select City",cityOptions,true,"Select a city");
+  const contryDropdownConfig = GetMultiSelectDropdownConfig("tags","Select Tags",tagOptions,"my-custom-class");
 
   return (
     <Formik
-      initialValues={{
-        email: "",
-        password: "",
-        isActive: false,
-        isEnable: false,
-        date: null,
-        search: "",
-        city: "",
-        tags: [],
-      }}
+      initialValues={initialValues}
       validationSchema={ValidationSchema}
       onSubmit={onSubmit}
     >
-      {({ isSubmitting, setFieldValue, values }) => (
-        <Form>
-          <div className="my-2">
-            <InputField inputConfig={emailInputConfig} />
-          </div>
-          <div className="my-2">
-            <InputField inputConfig={passwordInputConfig} />
-          </div>
-          <div className="my-2">
-            <CustomCheckbox
-              checkBoxConfig={{
-                name: "isActive",
-                label: "Is Active",
-                checked: values.isActive,
-                onChange: (e) => setFieldValue("isActive", e.target.checked),
-              }}
-            />
-          </div>
-          <div className="my-2">
-            <ToggleSwitch
-              switchConfig={{
-                id: "1",
-                name: "isEnable",
-                label: "IsEnable",
-                onChange: (e) => setFieldValue("isEnable", e.target.value),
-              }}
-            />
-          </div>
-          <div className="my-2">
-            <DatePickerField
-              dateConfig={{
-                id: "date",
-                name: "date",
-                label: "Select Date",
-                disabled: false,
-              }}
-            />
-          </div>
-          <div className="my-2">
-            <MultiSelectDropdown
-              name="tags"
-              label="Select Tags"
-              options={tagOptions}
-              className="my-custom-class"
-            />
-          </div>
-          <div className="my-2">
-            <DropdownField
-              name="city"
-              label="Select City"
-              options={cityOptions}
-              defaultValue="Select a city"
-            />
-          </div>
-          <div className="my-2">
-            <SearchBar
-              searchBarConfig={{
-                id: "search",
-                name: "search",
-                value: values.search || "",
-                onChange: (value) => setFieldValue("search", value),
-                placeholder: "Search here...",
-              }}
-            />
-          </div>
-          <div className="my-2">
-            <Button buttonConfig={loginBtnConfig}>
-              {isSubmitting ? "Submiting..." : "Submit"}
-            </Button>
-          </div>
-        </Form>
-      )}
+      {({ isSubmitting, setFieldValue, values }) => {
+        const checkBoxConfig: CustomCheckboxProps = {
+          name: "isActive",
+          label: "Is Active",
+          checked: values.isActive,
+          onChange: (e) => setFieldValue("isActive", e.target.checked),
+        };
+
+        const toggleSwitchConfig: ToggleSwitchProps = {
+          id: "isEnable",
+          name: "isEnable",
+          label: "Is Enable",
+          checked: values.isEnable,
+          onChange: (e) => setFieldValue("isEnable", e.target.checked),
+        };
+        return (
+          <Form>
+            <div className="my-4">
+              <InputField inputConfig={emailConfig} />
+            </div>
+            <div className="my-4">
+              <InputField inputConfig={passwordConfig} />
+            </div>
+            <div className="my-2">
+              <MultiSelectDropdown
+                multiSelectDropdownConfig={contryDropdownConfig}
+              />
+            </div>
+            <div className="my-2">
+              <DropdownField dropDownConfig={cityDropdownConfig} />
+            </div>
+            <div className="my-2">
+              <DatePickerField dateConfig={dateConfig} />
+            </div>
+            <div className="my-2">
+              <CustomCheckbox checkBoxConfig={checkBoxConfig} />
+            </div>
+            <div className="my-2">
+              <ToggleSwitch switchConfig={toggleSwitchConfig} />
+            </div>
+            <div className="my-2">
+              <Button buttonConfig={loginBtnConfig}>
+                {isSubmitting ? "Submitting..." : "Submit"}
+              </Button>
+            </div>
+          </Form>
+        );
+      }}
     </Formik>
   );
 };

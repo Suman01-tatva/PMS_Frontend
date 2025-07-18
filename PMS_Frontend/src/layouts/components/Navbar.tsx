@@ -8,6 +8,7 @@ import DesktopNav from "./NavbarTabs";
 import NotificationDropdown from "./NotificationDropdown";
 import MobileDrawer from "./Sidebar";
 import ConfirmationModal from "../../common/components/formControlls/popUpModal/PopUpModal";
+import type { PopUpModalProps } from "../../common/components/formControlls/popUpModal/types";
 
 const Navbar: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -30,7 +31,7 @@ const Navbar: React.FC = () => {
     setDrawerOpen(false);
   };
 
-  const handleConfirmLogout = () => {
+  const handleConfirmLogout : () => void  = () => {
     dispatch(logout());
     localStorage.setItem("isAuthenticated", "false");
     Cookies.remove("access_token");
@@ -53,6 +54,16 @@ const Navbar: React.FC = () => {
     if (drawerRef.current && !drawerRef.current.contains(event.target as Node))
       setDrawerOpen(false);
   };
+
+  const  popUpModalConfig: PopUpModalProps = {
+    isOpen:isModalOpen,
+    onClose:() => setModalOpen(false),
+    onConfirm: handleConfirmLogout,
+    title:"Logout Confirmation",
+    confirmText:"Yes",
+    cancelText:"No",
+    size:"sm",
+  }
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -126,13 +137,7 @@ const Navbar: React.FC = () => {
       />
 
       <ConfirmationModal
-        isOpen={isModalOpen}
-        onClose={() => setModalOpen(false)}
-        onConfirm={handleConfirmLogout}
-        title="Logout Confirmation"
-        confirmText="Yes"
-        cancelText="No"
-        size="md"
+       popUpModalConfig={popUpModalConfig}
       >
         Are you sure you want to log out?
       </ConfirmationModal>

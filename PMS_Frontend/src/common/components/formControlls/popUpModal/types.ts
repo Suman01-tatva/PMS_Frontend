@@ -8,4 +8,5 @@ export interface PopUpModalProps {
   cancelText?: string;
   size?: "sm" | "lg" | "xl" | "md";
   children?: React.ReactNode;
+  showAction?: boolean;
 }

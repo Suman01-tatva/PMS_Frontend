@@ -1,11 +1,11 @@
 export interface InputFieldProps {
   id: string;
   name: string;
+  type: "email" | "text" | "password" | "number" | "date";
   value?: string | number | boolean;
   label?: string;
   placeholder?: string;
   className?: string;
-  type: "email" | "text" | "password" | "number" | "date";
   autoComplete?: string;
   disabled?: boolean;
   readonly?: boolean;
